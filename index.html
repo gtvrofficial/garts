@@ -1,1 +1,29 @@
-your not supposed to see this ;)
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GTVR — Home</title><link rel="stylesheet" href="./styles.css"></head><body>
+<header class="topbar"><a class="logo" href="./">GTVR</a><nav class="nav"><a href="./">Home</a></nav></header>
+<main class="feed"><h1 class="feed-title">Home</h1><div id="feed"></div></main>
+<div class="lightbox" id="lightbox"><button class="close">×</button><img id="lightbox-img"></div>
+<script src="./config.js"></script><script>
+const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function openImage(src){$("#lightbox-img").src=src;$("#lightbox").classList.add("open")}
+async function main(){
+ const base=window.SITE_CONFIG?.DATA_PATH||"./data";
+ const data=await fetch(base+"/feed.json").then(r=>r.json());
+ $("#feed").innerHTML=(data.posts||[]).map(p=>`<article class="feed-post">
+ <div class="feed-head"><img class="feed-avatar" src="${esc(p.avatar)}"><div><div class="feed-name">${esc(p.display_name)}</div><div class="feed-user">@${esc(p.username)}</div></div></div>
+ <img class="feed-image" src="${esc(p.image)}" alt="Post by ${esc(p.display_name)}" data-img="${esc(p.image)}">
+ <div class="feed-body"><div class="feed-caption">${esc(p.caption||"")}</div><div class="feed-actions"><button data-star="${esc(p.id)}">☆ <span>${Number(p.stars||0)}</span></button><a href="./profile.html?id=${encodeURIComponent(p.profile_id)}">View profile</a></div></div></article>`).join("")||'<div class="empty">No posts yet.</div>';
+ document.querySelectorAll("[data-img]").forEach(x=>x.onclick=()=>openImage(x.dataset.img));
+ document.querySelectorAll("[data-star]").forEach(b=>b.onclick=()=>rate(b.dataset.star,b));
+}
+async function rate(id,b){
+ const key="feedstar:"+id, active=localStorage.getItem(key)==="1";
+ if(window.SITE_CONFIG?.RATING_API){
+  const r=await fetch(window.SITE_CONFIG.RATING_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({post_id:id,action:active?"remove":"add"})});
+  if(!r.ok){alert("The rating could not be saved.");return}
+  location.reload();return;
+ }
+ localStorage.setItem(key,active?"0":"1"); b.firstChild.textContent=active?"☆ ":"★ "; b.querySelector("span").textContent=Number(b.querySelector("span").textContent)+(active?-1:1);
+}
+$("#lightbox").onclick=e=>{if(e.target.id==="lightbox"||e.target.id==="lightbox-img")$("#lightbox").classList.remove("open")};
+main().catch(e=>$("#feed").innerHTML='<div class="empty">The feed could not be loaded.</div>');
+</script></body></html>
