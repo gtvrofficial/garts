@@ -1,56 +1,15 @@
-# Google Sites Community Feed
+# Feed v2
 
-This is a GitHub Pages frontend that can be embedded into Google Sites.
+This version uses a Facebook-style light feed and is responsive for phones and desktop.
 
-## 1. Create the backend
+1. Create a Supabase project.
+2. Run `supabase.sql` after replacing `YOUR-ADMIN-USER-UUID` with your admin user's UUID.
+3. Enable Email and Anonymous authentication in Supabase.
+4. Copy `config.example.js` to `config.js` and add the Supabase URL + browser publishable/anon key.
+5. Upload the files to GitHub Pages.
+6. Open `/admin.html` for the editor.
+7. Embed `/index.html` in Google Sites.
 
-Create a free Supabase project.
+If the login button previously did nothing, this version displays the actual Supabase error instead of silently failing and also allows Enter in the password field.
 
-In Supabase:
-1. Open SQL Editor.
-2. Run `supabase.sql`.
-3. Enable Anonymous Sign-Ins under Authentication -> Providers.
-4. Create an admin email/password user under Authentication -> Users.
-5. Copy that admin user's UUID.
-6. Replace `YOUR-ADMIN-USER-UUID` in `supabase.sql` with the UUID.
-7. Run the three admin policies again (or rerun the edited SQL after removing the old policies if Supabase reports that they already exist).
-
-## 2. Configure the website
-
-Copy:
-
-`config.example.js` -> `config.js`
-
-Put your Supabase project URL and browser-safe publishable/anon key in it.
-
-Do NOT put a `service_role` or secret key in `config.js`.
-
-## 3. Publish with GitHub Pages
-
-Upload the files to a GitHub repository. Enable GitHub Pages for the repository.
-
-Important: `config.js` contains a public browser key. That is normal for Supabase's anon/publishable key, but keep your service/secret key private.
-
-## 4. Use the editor
-
-Open:
-
-`https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPOSITORY/admin.html`
-
-Log in with your admin account.
-
-You can create and edit posts.
-
-## 5. Embed in Google Sites
-
-In Google Sites, use Embed -> URL and enter the GitHub Pages URL for `index.html`.
-
-### Stars
-
-The site uses Supabase Anonymous Auth. Each browser gets a persistent anonymous account/session, and `post_stars` has a unique `(post_id, user_id)` constraint.
-
-Clicking Star adds one star. Clicking it again removes it.
-
-This prevents duplicate stars from the same anonymous account. It is intentionally device/browser oriented, not an identity system. Clearing browser data or switching devices creates a different anonymous account.
-
-For stronger anti-abuse protection later, add real user accounts/login and optional rate limiting.
+Do not put a Supabase service_role/secret key in config.js.

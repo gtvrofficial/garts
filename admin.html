@@ -1,53 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Feed Admin</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feed Admin</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="page admin-page">
-    <header class="site-header">
-      <h1>Feed Admin</h1>
-      <p>Create and edit posts.</p>
-    </header>
+<header class="topbar"><div class="topbar-inner"><strong>Feed Admin</strong></div></header>
+<main class="page admin-page">
+  <section id="login-panel" class="panel">
+    <h1>Admin login</h1>
+    <p class="muted">Sign in with the admin account you created in Supabase.</p>
+    <label>Email<input id="email" type="email" autocomplete="username" placeholder="Email"></label>
+    <label>Password<input id="password" type="password" autocomplete="current-password" placeholder="Password"></label>
+    <button id="login">Log in</button>
+    <p id="login-status" class="status"></p>
+  </section>
 
-    <section id="login-panel" class="panel">
-      <h2>Admin login</h2>
-      <input id="email" type="email" placeholder="Admin email">
-      <input id="password" type="password" placeholder="Password">
-      <button id="login">Log in</button>
-      <p id="login-status" class="status"></p>
-    </section>
-
-    <section id="editor-panel" class="panel hidden">
-      <div class="toolbar">
-        <h2 id="editor-title">Create post</h2>
-        <button id="logout" class="secondary">Log out</button>
-      </div>
-
-      <input id="post-id" type="text" placeholder="Post ID (leave blank to generate)">
-      <input id="profile-id" type="text" placeholder="Profile ID">
-      <input id="display-name" type="text" placeholder="Display name">
-      <input id="username" type="text" placeholder="@username">
-      <textarea id="content" rows="7" placeholder="Post text"></textarea>
-      <input id="image-url" type="url" placeholder="Image URL (optional)">
-      <input id="stars" type="number" min="0" value="0" placeholder="Starting stars">
-
-      <div class="toolbar">
-        <button id="save">Create post</button>
-        <button id="clear" class="secondary">Clear</button>
-      </div>
-
-      <h2>Existing posts</h2>
-      <div id="post-list"></div>
-      <p id="editor-status" class="status"></p>
-    </section>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="admin.js"></script>
+  <section id="editor-panel" class="panel hidden">
+    <div class="section-head"><div><h1 id="editor-title">Create post</h1><p class="muted">Manage feed posts.</p></div><button id="logout" class="secondary">Log out</button></div>
+    <label>Post ID<input id="post-id" placeholder="Leave blank to generate"></label>
+    <label>Profile ID<input id="profile-id" placeholder="e.g. 1234567"></label>
+    <label>Display name<input id="display-name"></label>
+    <label>Username<input id="username" placeholder="@username"></label>
+    <label>Post text<textarea id="content" rows="7"></textarea></label>
+    <label>Image URL<input id="image-url" type="url" placeholder="https://..."></label>
+    <label>Starting stars<input id="stars" type="number" min="0" value="0"></label>
+    <div class="actions"><button id="save">Create post</button><button id="clear" class="secondary">Clear</button></div>
+    <h2>Existing posts</h2><div id="post-list"></div>
+    <p id="editor-status" class="status"></p>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>
