@@ -1,9 +1,31 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Profile</title><link rel="stylesheet" href="./styles.css"></head><body>
-<header class="topbar"><a class="logo" href="./">GTVR</a><nav class="nav"><a href="./">Home</a></nav></header>
-<main class="page">
-<header class="profile-header" id="header"><div class="profile-content"><img class="avatar" id="avatar"><section class="identity"><h1 class="name" id="name"></h1><div class="username" id="username"></div><div class="line"></div><div class="badges" id="badges"></div></section></div></header>
-<section class="description"><details><summary>Description</summary><div class="description-text" id="description"></div></details></section>
-<section class="posts"><h2>Posts</h2><div class="post-grid" id="posts"></div></section>
-</main>
-<div class="lightbox" id="lightbox"><button class="close" aria-label="Close">×</button><img id="lightbox-img"></div>
-<script src="./config.js"></script><script src="./profile.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Profile</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f3f3;color:#111;font-family:Arial,Helvetica,sans-serif}
+.profile{max-width:1100px;margin:auto;background:#fff;min-height:100vh}.header{position:relative;min-height:395px;padding:40px 7%;overflow:hidden;background:#555}
+.header:before{content:"";position:absolute;inset:-40px;background-image:var(--bg);background-position:center;background-size:cover;filter:blur(35px);transform:scale(1.12);opacity:.95}
+.header:after{content:"";position:absolute;inset:0;background:rgba(30,30,35,.24)}
+.content{position:relative;z-index:1;display:flex;gap:32px}.avatar{width:260px;height:260px;flex:none;object-fit:cover;border-radius:28%;background:#ddd;box-shadow:0 8px 30px #0005}.identity{flex:1;color:#fff;padding-top:14px}.name{margin:0;font-size:clamp(42px,6vw,64px);font-weight:300;line-height:1.05}.username{margin-top:28px;font-size:20px;font-weight:600}.line{height:1px;margin-top:22px;background:#ffffff59}.badges{display:flex;gap:10px;margin-top:20px}.badge{width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#168cff;color:#fff;font-weight:bold}
+.description{padding:0 7%;border-bottom:1px solid #e7e7e7}.description summary{padding:24px 0;cursor:pointer;list-style:none;font-size:18px;font-weight:600}.description summary::-webkit-details-marker{display:none}.description summary:after{content:"⌄";float:right;font-size:22px}.description-text{padding:0 0 28px;color:#333;font-size:17px;line-height:1.65}
+.posts{padding:34px 7% 70px}.posts h2{margin:0 0 24px;font-size:26px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.post{overflow:hidden;border-radius:18px;background:#eee;box-shadow:0 2px 12px #0001}.post img{display:block;width:100%;aspect-ratio:1;object-fit:cover;cursor:zoom-in}.caption{padding:14px 16px;background:#fff;color:#666}
+.viewer{display:none;position:fixed;inset:0;background:#000d;z-index:50;align-items:center;justify-content:center;padding:20px}.viewer.open{display:flex}.viewer img{max-width:95vw;max-height:92vh;object-fit:contain}.close{position:fixed;right:20px;top:15px;color:#fff;font-size:34px;cursor:pointer}
+@media(max-width:700px){.header{padding:28px 6%;min-height:auto}.content{flex-direction:column}.avatar{width:170px;height:170px}.identity{padding:0}.username{margin-top:16px}.description,.posts{padding-left:6%;padding-right:6%}.grid{grid-template-columns:1fr}}
+</style></head>
+<body><main class="profile" id="profile">Loading profile…</main>
+<div class="viewer" id="viewer"><span class="close" onclick="closeViewer()">×</span><img id="viewerImg"></div>
+<script>
+const SITE=location.origin+location.pathname.split("/users/")[0]+(location.pathname.includes("/users/")?"/":"");
+const id=location.pathname.split("/").filter(Boolean).pop();
+function asset(p){return p.startsWith("http")?p:SITE+p.replace(/^\/+/,"")}
+function openViewer(src){viewer.classList.add("open");viewerImg.src=src} function closeViewer(){viewer.classList.remove("open");viewerImg.src=""}
+async function main(){const p=await (await fetch(SITE+"data/profiles/"+id+".json?"+Date.now())).json();
+document.title=p.display_name+" — Profile";
+profile.innerHTML=`<header class="header" style="--bg:url('${asset(p.background)}')"><div class="content"><img class="avatar" src="${asset(p.avatar)}"><section class="identity"><h1 class="name">${esc(p.display_name)}</h1><div class="username">@${esc(p.username)}</div><div class="line"></div><div class="badges">${p.badges.map(b=>`<span class="badge">${b==="verified"?"✓":"★"}</span>`).join("")}</div></section></div></header>
+<section class="description"><details><summary>Description</summary><div class="description-text">${esc(p.description).replace(/\n/g,"<br>")}</div></details></section>
+<section class="posts"><h2>Posts</h2><div class="grid">${p.posts.length?p.posts.map(x=>`<article class="post"><img src="${asset(x.image)}" onclick="openViewer(this.src)" alt="Artwork">${x.caption?`<div class="caption">${esc(x.caption)}</div>`:""}</article>`).join(""):"<p>No posts yet.</p>"}</div></section>`}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+main().catch(()=>profile.textContent="Profile not found.");
+</script></body></html>
