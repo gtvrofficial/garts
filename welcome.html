@@ -1,180 +1,232 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>GARTS</title>
+<title>GARTS Welcome</title>
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Arial,
+            sans-serif;
+        background: transparent;
+        color: #111;
+    }
 
-    width: 100%;
+    .welcome {
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 14px 16px;
 
-    background: transparent;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+    }
 
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-    overflow: hidden;
-}
-
-#root {
-    width: 100%;
-}
-
-.welcome {
-    display: flex;
-    flex-direction: column;
-
-    gap: 7px;
-
-    width: fit-content;
-    max-width: 100%;
-}
-
-.welcome-title {
-    font-size: 17px;
-    font-weight: 700;
-
-    line-height: 1.2;
-}
-
-.account {
-    display: flex;
-    align-items: center;
-
-    width: fit-content;
-    max-width: 100%;
-}
-
-.profile-link {
-    display: flex;
-    align-items: center;
-
-    gap: 9px;
-
-    color: inherit;
-    text-decoration: none;
-}
-
-.avatar {
-    width: 36px;
-    height: 36px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    flex-shrink: 0;
-
-    background: #e5e5e5;
-}
-
-.name-area {
-    display: flex;
-    flex-direction: column;
-
-    line-height: 1.15;
-
-    min-width: 0;
-}
-
-.display-name {
-    font-size: 14px;
-    font-weight: 600;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.username {
-    margin-top: 2px;
-
-    font-size: 12px;
-
-    opacity: .65;
-
-    white-space: nowrap;
-}
-
-.login {
-    width: fit-content;
-
-    border: 0;
-    border-radius: 8px;
-
-    padding: 8px 13px;
-
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    background: #24292f;
-    color: white;
-}
-
-.login:disabled {
-    opacity: .6;
-}
-
-@media (max-width: 500px) {
-
-    .welcome-title {
-        font-size: 16px;
+    .avatar-link {
+        flex-shrink: 0;
+        text-decoration: none;
     }
 
     .avatar {
-        width: 34px;
-        height: 34px;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        background: #e9e9e9;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .text {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .welcome-text {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 3px;
+    }
+
+    .account {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        min-width: 0;
     }
 
     .display-name {
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .username {
-        font-size: 11px;
+        font-size: 13px;
+        color: #777;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-    .login {
-        padding: 7px 11px;
-        font-size: 12px;
+    .login-button {
+        flex-shrink: 0;
+
+        border: 0;
+        border-radius: 9px;
+        padding: 10px 15px;
+
+        background: #111;
+        color: white;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition:
+            transform 0.12s ease,
+            opacity 0.12s ease;
     }
 
-}
+    .login-button:hover {
+        opacity: 0.9;
+    }
 
+    .login-button:active {
+        transform: scale(0.97);
+    }
+
+    .status {
+        font-size: 13px;
+        color: #777;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    @media (max-width: 520px) {
+        .welcome {
+            padding: 12px;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 46px;
+            height: 46px;
+        }
+
+        .welcome-text {
+            font-size: 15px;
+        }
+
+        .display-name {
+            font-size: 13px;
+        }
+
+        .username {
+            font-size: 12px;
+        }
+
+        .login-button {
+            padding: 9px 12px;
+            font-size: 13px;
+        }
+    }
 </style>
-
 </head>
 
 <body>
 
-<div id="root"></div>
+<div class="welcome">
+
+    <!-- Avatar -->
+    <a
+        id="avatarLink"
+        class="avatar-link hidden"
+        href="#"
+        target="_top"
+    >
+        <img
+            id="avatar"
+            class="avatar"
+            src=""
+            alt="Profile picture"
+        >
+    </a>
+
+    <!-- Text -->
+    <div class="text">
+
+        <div
+            id="welcomeText"
+            class="welcome-text"
+        >
+            Welcome Back, GTVR
+        </div>
+
+        <div
+            id="account"
+            class="account hidden"
+        >
+            <span
+                id="displayName"
+                class="display-name"
+            ></span>
+
+            <span
+                id="username"
+                class="username"
+            ></span>
+        </div>
+
+        <div
+            id="status"
+            class="status"
+        >
+            Not signed in
+        </div>
+
+    </div>
+
+    <!-- Login -->
+    <button
+        id="loginButton"
+        class="login-button"
+        type="button"
+    >
+        Sign in with GitHub
+    </button>
+
+</div>
 
 <script>
-
-"use strict";
-
+/* =========================================================
+   CONFIG
+========================================================= */
 
 const WORKER =
     "https://garts-comments.w8361346.workers.dev";
@@ -182,395 +234,417 @@ const WORKER =
 const TOKEN_KEY =
     "garts_session_token";
 
-const root =
-    document.getElementById("root");
+const PROFILE_BASE =
+    "https://gtvrofficial.github.io/garts/users/";
 
 
-function escapeHtml(value) {
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-    return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+const welcomeText =
+    document.getElementById("welcomeText");
 
+const account =
+    document.getElementById("account");
+
+const displayName =
+    document.getElementById("displayName");
+
+const username =
+    document.getElementById("username");
+
+const status =
+    document.getElementById("status");
+
+const avatar =
+    document.getElementById("avatar");
+
+const avatarLink =
+    document.getElementById("avatarLink");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function getToken() {
+    return localStorage.getItem(TOKEN_KEY);
 }
 
+function setToken(token) {
+    if (!token) return;
+
+    localStorage.setItem(
+        TOKEN_KEY,
+        token
+    );
+}
+
+function clearToken() {
+    localStorage.removeItem(
+        TOKEN_KEY
+    );
+}
 
 function profileUrl(username) {
-
     return (
-        "https://gtvrofficial.github.io/garts/users/" +
+        PROFILE_BASE +
         encodeURIComponent(username)
     );
-
 }
 
+
+/* =========================================================
+   LOGGED OUT UI
+========================================================= */
 
 function showLoggedOut() {
 
-    root.innerHTML = `
+    welcomeText.textContent =
+        "Welcome Back, GTVR";
 
-        <div class="welcome">
+    account.classList.add(
+        "hidden"
+    );
 
-            <div class="welcome-title">
-                Welcome Back, GTVR
-            </div>
+    avatarLink.classList.add(
+        "hidden"
+    );
 
-            <button
-                class="login"
-                id="loginButton"
-                type="button"
-            >
-                Sign in with GitHub
-            </button>
+    avatar.removeAttribute("src");
 
-        </div>
+    status.textContent =
+        "Not signed in";
 
-    `;
+    loginButton.classList.remove(
+        "hidden"
+    );
 
+    loginButton.disabled = false;
 
-    document
-        .getElementById("loginButton")
-        .addEventListener(
-            "click",
-            login
-        );
-
+    loginButton.textContent =
+        "Sign in with GitHub";
 }
 
 
-function showAccount(user) {
+/* =========================================================
+   LOGGED IN UI
+========================================================= */
 
-    const username =
-        user.gartsUsername ||
-        user.login ||
-        user.username ||
+function showLoggedIn(user) {
+
+    const name =
+        user?.name ||
+        user?.login ||
+        "GTVR";
+
+    const login =
+        user?.login ||
         "";
 
+    welcomeText.textContent =
+        `Welcome Back, ${name}`;
 
-    const displayName =
-        user.displayName ||
-        user.name ||
-        user.login ||
-        "GARTS User";
+    displayName.textContent =
+        name;
 
+    username.textContent =
+        login
+            ? `@${login}`
+            : "";
 
-    const avatar =
-        user.avatarUrl ||
-        user.avatar_url ||
-        "";
+    account.classList.remove(
+        "hidden"
+    );
 
+    if (user?.avatar_url) {
 
-    root.innerHTML = `
+        avatar.src =
+            user.avatar_url;
 
-        <div class="welcome">
+        avatarLink.href =
+            profileUrl(login);
 
-            <div class="welcome-title">
-                Welcome Back, ${escapeHtml(displayName)}
-            </div>
-
-            <div class="account">
-
-                <a
-                    class="profile-link"
-                    href="${profileUrl(username)}"
-                    target="_top"
-                >
-
-                    <img
-                        class="avatar"
-                        src="${escapeHtml(avatar)}"
-                        alt=""
-                    >
-
-                    <div class="name-area">
-
-                        <div class="display-name">
-                            ${escapeHtml(displayName)}
-                        </div>
-
-                        <div class="username">
-                            @${escapeHtml(username)}
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-function getToken() {
-
-    try {
-
-        return localStorage.getItem(
-            TOKEN_KEY
+        avatarLink.classList.remove(
+            "hidden"
         );
-
-    } catch {
-
-        return null;
-
     }
 
+    status.textContent =
+        "Signed in with GitHub";
+
+    loginButton.classList.add(
+        "hidden"
+    );
 }
 
 
-function saveToken(token) {
+/* =========================================================
+   CHECK SESSION
+========================================================= */
 
-    if (!token) {
-        return;
-    }
-
-    try {
-
-        localStorage.setItem(
-            TOKEN_KEY,
-            token
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Could not save GARTS session:",
-            error
-        );
-
-    }
-
-}
-
-
-function removeToken() {
-
-    try {
-
-        localStorage.removeItem(
-            TOKEN_KEY
-        );
-
-    } catch {}
-
-}
-
-
-async function getMe() {
+async function checkSession() {
 
     const token =
         getToken();
 
-
-    const headers = {
-        "Accept":
-            "application/json"
-    };
-
-
-    if (token) {
-
-        headers["Authorization"] =
-            "Bearer " + token;
-
+    if (!token) {
+        showLoggedOut();
+        return;
     }
 
+    status.textContent =
+        "Checking account...";
 
     try {
 
         const response =
             await fetch(
-                WORKER + "/api/me",
+                `${WORKER}/api/me`,
                 {
-                    method:
-                        "GET",
+                    method: "GET",
 
-                    headers:
-                        headers,
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    },
 
-                    credentials:
-                        "include"
+                    cache: "no-store"
                 }
             );
 
-
         if (!response.ok) {
-
-            if (
-                response.status === 401 ||
-                response.status === 403
-            ) {
-
-                removeToken();
-
-            }
-
-            return false;
-
+            throw new Error(
+                `HTTP ${response.status}`
+            );
         }
-
 
         const data =
             await response.json();
 
-
         if (
-            data.success &&
+            data &&
+            data.loggedIn &&
             data.user
         ) {
 
-            showAccount(
+            showLoggedIn(
                 data.user
             );
 
-            return true;
-
+            return;
         }
+
+        /*
+         * The token exists locally but
+         * Cloudflare no longer recognizes it.
+         */
+
+        clearToken();
+
+        showLoggedOut();
 
     } catch (error) {
 
         console.error(
-            "GARTS /api/me failed:",
+            "GARTS session check failed:",
             error
         );
 
-    }
+        /*
+         * Don't immediately delete the token
+         * just because the network failed.
+         *
+         * It may simply be a temporary
+         * connection problem.
+         */
 
+        status.textContent =
+            "Unable to check login";
 
-    return false;
-
-}
-
-
-function login() {
-
-    const width = 600;
-    const height = 700;
-
-    const left =
-        window.screenX +
-        (
-            window.outerWidth -
-            width
-        ) / 2;
-
-    const top =
-        window.screenY +
-        (
-            window.outerHeight -
-            height
-        ) / 2;
-
-
-    const popup =
-        window.open(
-            WORKER +
-            "/oauth/login?return=welcome",
-
-            "gartsOAuth",
-
-            `width=${width},height=${height},left=${left},top=${top},popup=yes`
+        loginButton.classList.remove(
+            "hidden"
         );
-
-
-    if (!popup) {
-
-        window.location.href =
-            WORKER +
-            "/oauth/login?return=welcome";
-
-        return;
-
     }
-
-
-    popup.focus();
-
 }
 
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+loginButton.addEventListener(
+    "click",
+    () => {
+
+        /*
+         * The Worker remembers the post ID
+         * if one was supplied.
+         */
+
+        const currentUrl =
+            new URL(
+                window.location.href
+            );
+
+        const postId =
+            currentUrl.searchParams.get(
+                "id"
+            );
+
+        let loginUrl =
+            `${WORKER}/oauth/login`;
+
+        if (postId) {
+
+            loginUrl +=
+                `?id=${encodeURIComponent(
+                    postId
+                )}`;
+        }
+
+        /*
+         * Open GitHub authentication in a popup.
+         */
+
+        const width = 520;
+        const height = 720;
+
+        const left =
+            Math.max(
+                0,
+                (screen.width - width) / 2
+            );
+
+        const top =
+            Math.max(
+                0,
+                (screen.height - height) / 2
+            );
+
+        const popup =
+            window.open(
+                loginUrl,
+                "garts_github_login",
+                [
+                    `width=${width}`,
+                    `height=${height}`,
+                    `left=${left}`,
+                    `top=${top}`,
+                    "popup=yes",
+                    "resizable=yes",
+                    "scrollbars=yes"
+                ].join(",")
+            );
+
+        /*
+         * Some browsers may block popups.
+         */
+
+        if (!popup) {
+
+            window.open(
+                loginUrl,
+                "_blank"
+            );
+        }
+    }
+);
+
+
+/* =========================================================
+   OAUTH MESSAGE
+========================================================= */
 
 window.addEventListener(
     "message",
-    async function(event) {
+    async event => {
+
+        /*
+         * IMPORTANT:
+         *
+         * Only accept messages originating from
+         * our Cloudflare Worker.
+         */
 
         if (
             event.origin !== WORKER
         ) {
-
             return;
-
         }
-
 
         const data =
             event.data;
-
 
         if (
             !data ||
             data.type !== "garts-auth"
         ) {
-
             return;
-
         }
 
+        /*
+         * Login failed.
+         */
 
-        console.log(
-            "GARTS OAuth session received."
-        );
+        if (!data.token) {
 
-
-        if (data.token) {
-
-            saveToken(
-                data.token
+            console.error(
+                "GARTS OAuth failed:",
+                data
             );
 
+            status.textContent =
+                "Login failed";
+
+            return;
         }
 
+        /*
+         * Save the GARTS session.
+         */
+
+        setToken(
+            data.token
+        );
+
+        /*
+         * Immediately display the
+         * account information returned
+         * by OAuth.
+         */
 
         if (data.user) {
 
-            showAccount(
+            showLoggedIn(
                 data.user
             );
-
         }
 
+        /*
+         * Then verify the session against
+         * Cloudflare.
+         */
 
-        await getMe();
-
+        await checkSession();
     }
 );
 
 
-async function init() {
+/* =========================================================
+   STARTUP
+========================================================= */
 
-    const authenticated =
-        await getMe();
+showLoggedOut();
 
-
-    if (!authenticated) {
-
-        showLoggedOut();
-
-    }
-
-}
-
-
-init();
+checkSession();
 
 </script>
 
 </body>
-
 </html>
+```
