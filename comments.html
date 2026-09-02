@@ -1,1062 +1,712 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GARTS Comments</title>
+<title>Comments</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-
-    background: #f5f5f5;
-    color: #111;
-}
-
-body {
-    padding: 14px;
-}
-
-.comments {
-    width: 100%;
-    max-width: 760px;
-    margin: 0 auto;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 14px;
-}
-
-.title {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.count {
-    font-size: 13px;
-    color: #777;
-}
-
-/* =========================================================
-   COMMENT BOX
-========================================================= */
-
-.composer {
-    background: #fff;
-    border-radius: 12px;
-
-    padding: 12px;
-
-    margin-bottom: 16px;
-
-    border: 1px solid #e5e5e5;
-}
-
-textarea {
-    width: 100%;
-    min-height: 80px;
-
-    resize: vertical;
-
-    border: 1px solid #ddd;
-    border-radius: 9px;
-
-    padding: 10px 11px;
-
-    font-family: inherit;
-    font-size: 14px;
-
-    outline: none;
-
-    background: #fafafa;
-    color: #111;
-}
-
-textarea:focus {
-    border-color: #999;
-    background: #fff;
-}
-
-.composer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-top: 9px;
-}
-
-.login-message {
-    font-size: 13px;
-    color: #777;
-}
-
-.button {
-    border: 0;
-    border-radius: 8px;
-
-    padding: 9px 14px;
-
-    background: #111;
-    color: #fff;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-.button:hover {
-    opacity: .9;
-}
-
-.button:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-}
-
-/* =========================================================
-   COMMENTS
-========================================================= */
-
-.comment {
-    background: #fff;
-
-    border: 1px solid #e5e5e5;
-    border-radius: 12px;
-
-    padding: 13px;
-
-    margin-bottom: 10px;
-}
-
-.comment-header {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-.avatar {
-    width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    background: #eee;
-}
-
-.comment-user {
-    min-width: 0;
-}
-
-.name {
-    font-size: 14px;
-    font-weight: 700;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.time {
-    font-size: 12px;
-    color: #888;
-
-    margin-top: 1px;
-}
-
-.comment-body {
-    margin-top: 9px;
-
-    font-size: 14px;
-    line-height: 1.45;
-
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-
-.comment-actions {
-    margin-top: 9px;
-
-    display: flex;
-    gap: 12px;
-}
-
-.action {
-    border: 0;
-    background: transparent;
-
-    padding: 0;
-
-    color: #777;
-
-    font-size: 12px;
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-.action:hover {
-    color: #111;
-}
-
-/* =========================================================
-   REPLIES
-========================================================= */
-
-.replies {
-    margin-top: 10px;
-    margin-left: 45px;
-
-    padding-left: 10px;
-
-    border-left: 2px solid #eee;
-}
-
-.reply {
-    margin-bottom: 9px;
-}
-
-/* =========================================================
-   STATES
-========================================================= */
-
-.loading,
-.empty,
-.error {
-    text-align: center;
-
-    padding: 30px 15px;
-
-    font-size: 14px;
-}
-
-.loading,
-.empty {
-    color: #777;
-}
-
-.error {
-    color: #c62828;
-}
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-.sign-in {
-    display: none;
-}
-
-.sign-in.visible {
-    display: block;
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 520px) {
+    * {
+        box-sizing: border-box;
+    }
 
     body {
-        padding: 9px;
+        margin: 0;
+        background: #f0f2f5;
+        color: #050505;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .comments-container {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 12px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.12);
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 15px;
     }
 
     .title {
-        font-size: 18px;
+        font-size: 20px;
+        font-weight: 700;
     }
 
-    .composer {
-        padding: 10px;
+    .login-button {
+        border: none;
+        background: #1877f2;
+        color: white;
+        padding: 9px 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .login-button:hover {
+        background: #166fe5;
+    }
+
+    .user-area {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #65676b;
+    }
+
+    .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .comment-box {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    textarea {
+        flex: 1;
+        resize: none;
+        min-height: 42px;
+        max-height: 140px;
+        border: 1px solid #ccd0d5;
+        border-radius: 20px;
+        padding: 11px 15px;
+        font-size: 15px;
+        font-family: inherit;
+        outline: none;
+        background: #f0f2f5;
+    }
+
+    textarea:focus {
+        border-color: #1877f2;
+        background: white;
+    }
+
+    .post-button {
+        align-self: flex-end;
+        border: none;
+        background: #1877f2;
+        color: white;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .post-button:disabled {
+        opacity: .5;
+        cursor: default;
+    }
+
+    .login-message {
+        background: #f0f2f5;
+        border-radius: 10px;
+        padding: 13px;
+        margin-bottom: 16px;
+        color: #65676b;
+        font-size: 14px;
+        text-align: center;
     }
 
     .comment {
-        padding: 11px;
+        margin-top: 15px;
     }
 
-    .replies {
-        margin-left: 25px;
+    .comment-content {
+        background: #f0f2f5;
+        border-radius: 14px;
+        padding: 10px 13px;
+        display: inline-block;
+        max-width: 100%;
     }
-}
+
+    .comment-author {
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 3px;
+    }
+
+    .comment-text {
+        font-size: 15px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .comment-date {
+        font-size: 12px;
+        color: #65676b;
+        margin: 4px 0 0 12px;
+    }
+
+    .reply {
+        margin-left: 35px;
+    }
+
+    .reply-line {
+        border-left: 2px solid #ddd;
+        padding-left: 10px;
+    }
+
+    .empty {
+        text-align: center;
+        color: #65676b;
+        padding: 20px 5px;
+    }
+
+    .status {
+        font-size: 13px;
+        color: #65676b;
+        margin-top: 8px;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        .comments-container {
+            padding: 6px;
+        }
+
+        .card {
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .header {
+            align-items: flex-start;
+        }
+
+        .title {
+            font-size: 18px;
+        }
+
+        .login-button {
+            font-size: 13px;
+            padding: 8px 11px;
+        }
+
+        .comment-box {
+            flex-direction: column;
+        }
+
+        .post-button {
+            align-self: flex-end;
+        }
+    }
 </style>
 </head>
 
 <body>
 
-<div class="comments">
+<div class="comments-container">
+    <div class="card">
 
-    <div class="header">
+        <div class="header">
+            <div class="title">Comments</div>
 
-        <div class="title">
-            Comments
-        </div>
+            <button
+                id="loginButton"
+                class="login-button"
+                onclick="login()">
+                Sign in with GitHub
+            </button>
 
-        <div
-            id="count"
-            class="count"
-        >
-            0
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         COMPOSER
-    ====================================================== -->
-
-    <div class="composer">
-
-        <textarea
-            id="commentInput"
-            placeholder="Write a comment..."
-            maxlength="5000"
-        ></textarea>
-
-        <div class="composer-bottom">
-
-            <div
-                id="loginMessage"
-                class="login-message"
-            >
-                Sign in with GitHub to comment.
+            <div id="userArea" class="user-area">
+                <img id="avatar" class="avatar" src="" alt="">
+                <span id="username"></span>
             </div>
+        </div>
+
+        <div id="loginMessage" class="login-message">
+            Sign in with GitHub to leave a comment.
+        </div>
+
+        <div id="commentBox" class="comment-box" style="display:none;">
+            <textarea
+                id="commentInput"
+                placeholder="Write a comment..."
+                maxlength="2000"></textarea>
 
             <button
                 id="postButton"
-                class="button"
-                disabled
-            >
+                class="post-button"
+                onclick="postComment()">
                 Post
             </button>
+        </div>
 
+        <div id="status" class="status"></div>
+
+        <div id="comments">
+            <div class="empty">Loading comments...</div>
         </div>
 
     </div>
-
-
-    <!-- =====================================================
-         COMMENTS LIST
-    ====================================================== -->
-
-    <div id="commentsList">
-
-        <div class="loading">
-            Loading comments...
-        </div>
-
-    </div>
-
 </div>
 
-
 <script>
+const WORKER = "https://garts-comments.w8361346.workers.dev";
+const TOKEN_KEY = "garts_session_token";
 
-/* =========================================================
-   CONFIG
-========================================================= */
+const params = new URLSearchParams(window.location.search);
+const postId = params.get("id");
 
-const WORKER =
-    "https://garts-comments.w8361346.workers.dev";
-
-const TOKEN_KEY =
-    "garts_session_token";
-
-
-/* =========================================================
-   POST ID
-========================================================= */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const postId =
-    params.get("id");
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const input =
-    document.getElementById(
-        "commentInput"
-    );
-
-const postButton =
-    document.getElementById(
-        "postButton"
-    );
-
-const loginMessage =
-    document.getElementById(
-        "loginMessage"
-    );
-
-const commentsList =
-    document.getElementById(
-        "commentsList"
-    );
-
-const count =
-    document.getElementById(
-        "count"
-    );
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let discussion = null;
-
+let sessionToken = null;
 let currentUser = null;
+let popup = null;
 
-let replyToId = null;
 
-
-/* =========================================================
-   TOKEN
-========================================================= */
+/* -----------------------------
+   STORAGE
+----------------------------- */
 
 function getToken() {
+    try {
+        return localStorage.getItem(TOKEN_KEY);
+    } catch {
+        return null;
+    }
+}
 
-    return localStorage.getItem(
-        TOKEN_KEY
-    );
+function saveToken(token) {
+    try {
+        localStorage.setItem(TOKEN_KEY, token);
+    } catch {}
+
+    sessionToken = token;
 }
 
 
-/* =========================================================
+/* -----------------------------
    API
-========================================================= */
+----------------------------- */
 
-async function api(
-    path,
-    options = {}
-) {
-
-    const token =
-        getToken();
+async function api(path, options = {}) {
 
     const headers = {
+        "Content-Type": "application/json",
         ...(options.headers || {})
     };
 
-    if (
-        options.body &&
-        !headers["Content-Type"]
-    ) {
-        headers["Content-Type"] =
-            "application/json";
+    if (sessionToken) {
+        headers["Authorization"] = "Bearer " + sessionToken;
     }
 
-    if (token) {
+    const response = await fetch(WORKER + path, {
+        ...options,
+        headers
+    });
 
-        headers.Authorization =
-            `Bearer ${token}`;
-    }
-
-    const response =
-        await fetch(
-            WORKER + path,
-            {
-                ...options,
-                headers,
-                cache: "no-store"
-            }
-        );
-
-    let data = null;
+    let data;
 
     try {
-        data =
-            await response.json();
+        data = await response.json();
     } catch {
-        data = {};
+        throw new Error("Invalid server response.");
     }
 
     if (!response.ok) {
-
-        throw new Error(
-            data.error ||
-            `HTTP ${response.status}`
-        );
+        throw new Error(data.error || "Request failed.");
     }
 
     return data;
 }
 
 
-/* =========================================================
-   AUTH STATE
-========================================================= */
+/* -----------------------------
+   LOGIN
+----------------------------- */
 
-async function checkLogin() {
+function login() {
 
-    const token =
-        getToken();
+    const width = 500;
+    const height = 700;
 
-    if (!token) {
+    const left =
+        window.screenX +
+        Math.max(0, (window.outerWidth - width) / 2);
 
-        currentUser = null;
+    const top =
+        window.screenY +
+        Math.max(0, (window.outerHeight - height) / 2);
 
-        updateComposer();
+    popup = window.open(
+        WORKER + "/auth/github?postId=" +
+        encodeURIComponent(postId || ""),
+        "gartsGitHubLogin",
+        `width=${width},height=${height},left=${left},top=${top}`
+    );
 
+    if (!popup) {
+        setStatus("Please allow popups for this site.");
+    }
+}
+
+
+/* -----------------------------
+   AUTH MESSAGE
+----------------------------- */
+
+window.addEventListener("message", async (event) => {
+
+    if (event.origin !== WORKER) {
+        return;
+    }
+
+    const data = event.data;
+
+    if (!data || data.type !== "garts-auth") {
+        return;
+    }
+
+    if (!data.token) {
+        setStatus("Login failed.");
+        return;
+    }
+
+    saveToken(data.token);
+
+    currentUser =
+        data.user ||
+        data.profile ||
+        null;
+
+    await loadUser();
+
+    if (popup && !popup.closed) {
+        popup.close();
+    }
+});
+
+
+/* -----------------------------
+   CHECK LOGIN
+----------------------------- */
+
+async function loadUser() {
+
+    if (!sessionToken) {
+        showLoggedOut();
         return;
     }
 
     try {
 
-        const data =
-            await api(
-                "/api/me"
-            );
+        const data = await api("/api/me");
 
-        if (
-            data.loggedIn &&
-            data.user
-        ) {
-
-            currentUser =
-                data.user;
-
-        } else {
-
-            currentUser = null;
-
-            /*
-             * The token is invalid/expired.
-             */
-            localStorage.removeItem(
-                TOKEN_KEY
-            );
+        if (!data.loggedIn) {
+            clearLogin();
+            return;
         }
+
+        currentUser = data.user;
+
+        showLoggedIn();
 
     } catch (error) {
 
-        console.error(
-            "Authentication check failed:",
-            error
-        );
+        console.error("Authentication check failed:", error);
 
-        currentUser = null;
-    }
-
-    updateComposer();
-}
-
-
-/* =========================================================
-   COMPOSER UI
-========================================================= */
-
-function updateComposer() {
-
-    if (currentUser) {
-
-        loginMessage.textContent =
-            `Commenting as @${currentUser.login}`;
-
-        postButton.disabled = false;
-
-        input.disabled = false;
-
-    } else {
-
-        loginMessage.textContent =
-            "Sign in with GitHub to comment.";
-
-        postButton.disabled = true;
-
-        input.disabled = true;
+        clearLogin();
     }
 }
 
 
-/* =========================================================
-   LOAD DISCUSSION
-========================================================= */
+/* -----------------------------
+   LOGIN UI
+----------------------------- */
+
+function showLoggedIn() {
+
+    document.getElementById("loginButton").style.display = "none";
+    document.getElementById("userArea").style.display = "flex";
+    document.getElementById("commentBox").style.display = "flex";
+    document.getElementById("loginMessage").style.display = "none";
+
+    const username =
+        currentUser?.login ||
+        currentUser?.username ||
+        currentUser?.displayName ||
+        "GitHub user";
+
+    document.getElementById("username").textContent =
+        username;
+
+    if (currentUser?.avatar_url) {
+        document.getElementById("avatar").src =
+            currentUser.avatar_url;
+    }
+}
+
+
+function showLoggedOut() {
+
+    document.getElementById("loginButton").style.display = "block";
+    document.getElementById("userArea").style.display = "none";
+    document.getElementById("commentBox").style.display = "none";
+    document.getElementById("loginMessage").style.display = "block";
+}
+
+
+function clearLogin() {
+
+    sessionToken = null;
+    currentUser = null;
+
+    try {
+        localStorage.removeItem(TOKEN_KEY);
+    } catch {}
+
+    showLoggedOut();
+}
+
+
+/* -----------------------------
+   COMMENTS
+----------------------------- */
 
 async function loadComments() {
 
     if (!postId) {
-
-        commentsList.innerHTML = `
-            <div class="error">
-                No post ID was provided.
-            </div>
-        `;
-
+        document.getElementById("comments").innerHTML =
+            '<div class="empty">No post ID provided.</div>';
         return;
     }
 
     try {
 
-        const data =
-            await api(
-                `/?id=${encodeURIComponent(
-                    postId
-                )}`
-            );
+        const data = await api(
+            "/?id=" + encodeURIComponent(postId)
+        );
 
-        if (
-            !data.success ||
-            !data.discussion
-        ) {
-
-            throw new Error(
-                data.error ||
-                "Could not load comments."
-            );
-        }
-
-        discussion =
-            data.discussion;
-
-        renderComments();
+        renderComments(
+            data.discussion?.comments?.nodes || []
+        );
 
     } catch (error) {
 
-        console.error(
-            "Could not load comments:",
-            error
-        );
+        console.error(error);
 
-        commentsList.innerHTML = `
-            <div class="error">
-                ${escapeHtml(
-                    error.message ||
-                    "Could not load comments."
-                )}
-            </div>
-        `;
+        document.getElementById("comments").innerHTML =
+            '<div class="empty">Unable to load comments.</div>';
     }
 }
 
 
-/* =========================================================
+/* -----------------------------
    RENDER COMMENTS
-========================================================= */
+----------------------------- */
 
-function renderComments() {
+function renderComments(comments) {
 
-    const comments =
-        discussion?.comments?.nodes || [];
-
-    count.textContent =
-        comments.length;
+    const container =
+        document.getElementById("comments");
 
     if (!comments.length) {
 
-        commentsList.innerHTML = `
-            <div class="empty">
-                No comments yet. Be the first!
-            </div>
-        `;
+        container.innerHTML =
+            '<div class="empty">No comments yet. Be the first!</div>';
 
         return;
     }
 
-    commentsList.innerHTML =
-        comments
-            .map(comment =>
-                renderComment(
-                    comment,
-                    false
-                )
+    container.innerHTML = "";
+
+    const topLevel = comments.filter(
+        comment => !comment.replyTo
+    );
+
+    const replies = comments.filter(
+        comment => comment.replyTo
+    );
+
+    topLevel.forEach(comment => {
+
+        container.appendChild(
+            createComment(comment)
+        );
+
+        replies
+            .filter(reply =>
+                reply.replyTo?.id === comment.id
             )
-            .join("");
+            .forEach(reply => {
+
+                const replyElement =
+                    createComment(reply, true);
+
+                container.appendChild(replyElement);
+            });
+    });
 }
 
 
-/* =========================================================
-   RENDER COMMENT
-========================================================= */
+/* -----------------------------
+   COMMENT ELEMENT
+----------------------------- */
 
-function renderComment(
-    comment,
-    isReply
-) {
+function createComment(comment, isReply = false) {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "comment" + (isReply ? " reply" : "");
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        isReply
+            ? "reply-line"
+            : "";
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "comment-content";
 
     const author =
-        comment.author;
+        document.createElement("div");
 
-    const name =
-        author?.login ||
-        "Unknown user";
+    author.className =
+        "comment-author";
 
-    const avatar =
-        author?.avatarUrl ||
-        "";
+    author.textContent =
+        comment.author?.login ||
+        comment.author?.name ||
+        "GitHub user";
 
-    const replies =
-        comment.replies?.nodes || [];
+    const text =
+        document.createElement("div");
 
-    return `
-        <div
-            class="${isReply ? "reply" : "comment"}"
-            data-comment-id="${escapeAttribute(
-                comment.id
-            )}"
-        >
+    text.className =
+        "comment-text";
 
-            <div class="comment-header">
+    text.textContent =
+        comment.body || "";
 
-                ${
-                    avatar
-                        ? `
-                        <img
-                            class="avatar"
-                            src="${escapeAttribute(
-                                avatar
-                            )}"
-                            alt=""
-                        >
-                        `
-                        : `
-                        <div
-                            class="avatar"
-                        ></div>
-                        `
-                }
+    bubble.appendChild(author);
+    bubble.appendChild(text);
 
-                <div class="comment-user">
+    const date =
+        document.createElement("div");
 
-                    <div class="name">
-                        ${escapeHtml(name)}
-                    </div>
+    date.className =
+        "comment-date";
 
-                    <div class="time">
-                        ${formatDate(
-                            comment.createdAt
-                        )}
-                    </div>
+    date.textContent =
+        formatDate(comment.createdAt);
 
-                </div>
+    content.appendChild(bubble);
+    content.appendChild(date);
 
-            </div>
+    wrapper.appendChild(content);
 
-            <div class="comment-body">
-                ${escapeHtml(
-                    comment.body || ""
-                )}
-            </div>
-
-            ${
-                !isReply
-                    ? `
-                    <div class="comment-actions">
-
-                        <button
-                            class="action"
-                            onclick="startReply(
-                                '${escapeAttribute(
-                                    comment.id
-                                )}'
-                            )"
-                        >
-                            Reply
-                        </button>
-
-                    </div>
-                    `
-                    : ""
-            }
-
-            ${
-                replies.length
-                    ? `
-                    <div class="replies">
-
-                        ${replies
-                            .map(reply =>
-                                renderComment(
-                                    reply,
-                                    true
-                                )
-                            )
-                            .join("")
-                        }
-
-                    </div>
-                    `
-                    : ""
-            }
-
-        </div>
-    `;
+    return wrapper;
 }
 
 
-/* =========================================================
-   REPLY
-========================================================= */
-
-function startReply(commentId) {
-
-    replyToId =
-        commentId;
-
-    input.placeholder =
-        "Write a reply...";
-
-    input.focus();
-
-    postButton.textContent =
-        "Reply";
-}
-
-
-/* =========================================================
-   CANCEL REPLY
-========================================================= */
-
-function cancelReply() {
-
-    replyToId = null;
-
-    input.placeholder =
-        "Write a comment...";
-
-    postButton.textContent =
-        "Post";
-}
-
-
-/* =========================================================
+/* -----------------------------
    POST COMMENT
-========================================================= */
+----------------------------- */
 
-postButton.addEventListener(
-    "click",
-    async () => {
+async function postComment() {
 
-        if (!currentUser) {
+    if (!sessionToken) {
 
-            alert(
-                "Please sign in with GitHub first."
-            );
+        login();
 
-            return;
-        }
+        return;
+    }
 
-        const body =
-            input.value.trim();
+    const input =
+        document.getElementById("commentInput");
 
-        if (!body) {
-            return;
-        }
+    const button =
+        document.getElementById("postButton");
 
-        postButton.disabled =
-            true;
+    const body =
+        input.value.trim();
 
-        postButton.textContent =
-            replyToId
-                ? "Replying..."
-                : "Posting...";
+    if (!body) {
+        return;
+    }
 
-        try {
+    button.disabled = true;
+    setStatus("Posting...");
 
-            const data =
-                await api(
-                    `/api/comment?id=${encodeURIComponent(
-                        postId
-                    )}`,
-                    {
-                        method: "POST",
+    try {
 
-                        body: JSON.stringify({
-                            body,
-                            replyToId
-                        })
-                    }
-                );
+        await api(
+            "/api/comment?id=" +
+            encodeURIComponent(postId),
+            {
+                method: "POST",
 
-            if (!data.success) {
-
-                throw new Error(
-                    data.error ||
-                    "Could not post comment."
-                );
+                body: JSON.stringify({
+                    body
+                })
             }
+        );
 
-            /*
-             * Reset composer.
-             */
+        input.value = "";
 
-            input.value = "";
+        setStatus("Comment posted.");
 
-            cancelReply();
+        await loadComments();
 
-            /*
-             * Reload comments so the new
-             * comment appears immediately.
-             */
+    } catch (error) {
 
-            await loadComments();
+        console.error(error);
 
-        } catch (error) {
+        if (
+            error.message
+                .toLowerCase()
+                .includes("auth")
+        ) {
+            clearLogin();
 
-            console.error(
-                "Comment failed:",
-                error
+            setStatus(
+                "Your login expired. Please sign in again."
             );
 
-            alert(
+        } else {
+
+            setStatus(
                 error.message ||
                 "Could not post comment."
             );
-
-        } finally {
-
-            updateComposer();
         }
+
+    } finally {
+
+        button.disabled = false;
     }
-);
-
-
-/* =========================================================
-   ENTER / CTRL+ENTER
-========================================================= */
-
-input.addEventListener(
-    "keydown",
-    event => {
-
-        /*
-         * Ctrl+Enter or Cmd+Enter posts.
-         */
-
-        if (
-            event.key === "Enter" &&
-            (event.ctrlKey || event.metaKey)
-        ) {
-
-            event.preventDefault();
-
-            if (
-                currentUser &&
-                input.value.trim()
-            ) {
-
-                postButton.click();
-            }
-        }
-
-        /*
-         * Escape cancels a reply.
-         */
-
-        if (
-            event.key === "Escape" &&
-            replyToId
-        ) {
-
-            cancelReply();
-        }
-    }
-);
-
-
-/* =========================================================
-   OAUTH MESSAGE
-========================================================= */
-
-window.addEventListener(
-    "message",
-    async event => {
-
-        /*
-         * Only accept messages from our Worker.
-         */
-
-        if (
-            event.origin !== WORKER
-        ) {
-            return;
-        }
-
-        const data =
-            event.data;
-
-        if (
-            !data ||
-            data.type !== "garts-auth"
-        ) {
-            return;
-        }
-
-        if (!data.token) {
-            return;
-        }
-
-        /*
-         * Save the same session token used
-         * by welcome.html.
-         */
-
-        localStorage.setItem(
-            TOKEN_KEY,
-            data.token
-        );
-
-        /*
-         * Verify the session.
-         */
-
-        await checkLogin();
-
-    }
-);
-
-
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-function escapeHtml(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
 }
 
-function escapeAttribute(value) {
 
-    return escapeHtml(value);
-}
+/* -----------------------------
+   DATE
+----------------------------- */
 
 function formatDate(date) {
 
@@ -1064,40 +714,54 @@ function formatDate(date) {
         return "";
     }
 
-    const parsed =
-        new Date(date);
+    const d = new Date(date);
 
-    if (
-        Number.isNaN(
-            parsed.getTime()
-        )
-    ) {
+    if (Number.isNaN(d.getTime())) {
         return "";
     }
 
-    return parsed.toLocaleString(
-        undefined,
-        {
-            dateStyle: "medium",
-            timeStyle: "short"
-        }
-    );
+    return d.toLocaleString();
 }
 
 
-/* =========================================================
+/* -----------------------------
+   STATUS
+----------------------------- */
+
+function setStatus(message) {
+
+    document.getElementById("status").textContent =
+        message;
+
+    if (message) {
+
+        setTimeout(() => {
+
+            const status =
+                document.getElementById("status");
+
+            if (status.textContent === message) {
+                status.textContent = "";
+            }
+
+        }, 4000);
+    }
+}
+
+
+/* -----------------------------
    START
-========================================================= */
+----------------------------- */
 
-async function start() {
+(async function init() {
 
-    await checkLogin();
+    sessionToken = getToken();
+
+    await loadUser();
 
     await loadComments();
-}
 
-start();
-
+})();
 </script>
 
 </body>
