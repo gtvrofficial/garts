@@ -16,11 +16,7 @@ body {
   width: 100%;
   background: transparent !important;
   overflow: hidden !important;
-}
-
-body {
   font-family: Arial, Helvetica, sans-serif;
-  color: #111;
 }
 
 .welcome {
@@ -29,83 +25,70 @@ body {
 }
 
 .title {
-  margin: 0 0 6px 0;
+  margin: 0 0 6px;
   font-size: clamp(18px, 3vw, 24px);
   line-height: 1.15;
   font-weight: 700;
+  color: #111;
 }
 
 .account {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-
   max-width: 100%;
-
   padding: 2px 6px 2px 2px;
   border-radius: 10px;
-
   color: inherit;
   text-decoration: none;
-
-  transition: background .15s ease;
 }
 
 .account:hover {
-  background: rgba(0, 0, 0, .06);
+  background: rgba(0,0,0,.06);
 }
 
 .avatar {
   width: 36px;
   height: 36px;
-
   min-width: 36px;
   min-height: 36px;
-
   border-radius: 50%;
   object-fit: cover;
-
   display: block;
+  background: #ddd;
 }
 
 .account-info {
   display: flex;
   align-items: center;
   gap: 7px;
-
   min-width: 0;
 }
 
 .display-name {
   font-size: 15px;
   font-weight: 700;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 45vw;
 }
 
 .username {
   font-size: 13px;
   color: #65676b;
-
   white-space: nowrap;
 }
 
 .signin {
   appearance: none;
   border: 0;
-
   padding: 7px 13px;
-
   border-radius: 9px;
-
   background: #111;
   color: white;
-
   font-size: 13px;
   font-weight: 600;
-
   cursor: pointer;
 }
 
@@ -118,7 +101,6 @@ body {
   color: #777;
 }
 
-/* Mobile */
 @media (max-width: 600px) {
 
   .welcome {
@@ -133,7 +115,6 @@ body {
   .avatar {
     width: 32px;
     height: 32px;
-
     min-width: 32px;
     min-height: 32px;
   }
@@ -163,7 +144,9 @@ body {
   </div>
 
   <div id="accountArea">
-    <div class="loading">Loading...</div>
+    <div class="loading">
+      Loading...
+    </div>
   </div>
 
 </div>
@@ -173,13 +156,16 @@ body {
 const WORKER =
   "https://garts-comments.w8361346.workers.dev";
 
-
 const welcomeName =
   document.getElementById("welcomeName");
 
 const accountArea =
   document.getElementById("accountArea");
 
+
+/* -----------------------------------------
+   HTML escaping
+----------------------------------------- */
 
 function escapeHTML(value) {
 
@@ -193,7 +179,11 @@ function escapeHTML(value) {
 }
 
 
-function openLogin() {
+/* -----------------------------------------
+   GitHub authentication
+----------------------------------------- */
+
+function authenticate() {
 
   const width = 500;
   const height = 650;
@@ -206,39 +196,64 @@ function openLogin() {
     window.screenY +
     (window.outerHeight - height) / 2;
 
+
   window.open(
-    WORKER + "/oauth/login?return=welcome",
+
+    WORKER +
+    "/oauth/login?return=welcome",
+
     "gartsLogin",
+
     `width=${width},height=${height},left=${left},top=${top}`
+
   );
 
 }
 
+
+/* -----------------------------------------
+   Get current GARTS account
+----------------------------------------- */
 
 async function loadAccount() {
 
   try {
 
     const response =
-      await fetch(WORKER + "/api/me", {
-        credentials: "include"
-      });
+      await fetch(
+        WORKER + "/api/me",
+        {
+          method: "GET",
+          credentials: "include",
+          cache: "no-store"
+        }
+      );
+
 
     const data =
       await response.json();
 
-    if (!data.success || !data.user) {
+
+    if (
+      !data.success ||
+      !data.user
+    ) {
 
       showLoggedOut();
       return;
 
     }
 
+
     showAccount(data.user);
+
 
   } catch (error) {
 
-    console.error(error);
+    console.error(
+      "GARTS account error:",
+      error
+    );
 
     showLoggedOut();
 
@@ -247,6 +262,10 @@ async function loadAccount() {
 }
 
 
+/* -----------------------------------------
+   Show logged-in account
+----------------------------------------- */
+
 function showAccount(user) {
 
   const username =
@@ -254,25 +273,31 @@ function showAccount(user) {
     user.login ||
     "user";
 
+
   const displayName =
     user.name ||
     user.login ||
     username;
 
+
   const avatar =
     user.avatarUrl ||
-    "https://github.com/identicons/" +
-    encodeURIComponent(username) +
-    ".png";
+    (
+      "https://github.com/identicons/" +
+      encodeURIComponent(username) +
+      ".png"
+    );
+
 
   welcomeName.textContent =
     displayName;
+
 
   accountArea.innerHTML = `
 
     <a
       class="account"
-      href="/users/${encodeURIComponent(username)}"
+      href="https://gtvrofficial.github.io/garts/users/${encodeURIComponent(username)}"
       title="Open profile"
     >
 
@@ -301,37 +326,74 @@ function showAccount(user) {
 }
 
 
+/* -----------------------------------------
+   Logged out state
+----------------------------------------- */
+
 function showLoggedOut() {
 
   welcomeName.textContent =
     "there";
 
+
   accountArea.innerHTML = `
 
     <button
       class="signin"
-      onclick="openLogin()"
+      id="signinButton"
+      type="button"
     >
       Sign in with GitHub
     </button>
 
   `;
 
+
+  document
+    .getElementById("signinButton")
+    .addEventListener(
+      "click",
+      authenticate
+    );
+
 }
 
 
-window.addEventListener("message", event => {
+/* -----------------------------------------
+   OAuth finished
+----------------------------------------- */
 
-  if (!event.data)
-    return;
+window.addEventListener(
+  "message",
+  function(event) {
 
-  if (event.data.type !== "garts-auth")
-    return;
+    if (!event.data)
+      return;
 
-  loadAccount();
 
-});
+    if (
+      event.data.type !==
+      "garts-auth"
+    )
+      return;
 
+
+    /*
+      OAuth succeeded.
+
+      Ask the Worker for the SAME
+      GARTS account used by comments.
+    */
+
+    loadAccount();
+
+  }
+);
+
+
+/* -----------------------------------------
+   Initial load
+----------------------------------------- */
 
 loadAccount();
 
