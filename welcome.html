@@ -1,306 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>GARTS Welcome</title>
+<style>
+* {
+  box-sizing: border-box;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #111;
-    }
+.welcome {
+  width: 100%;
+  height: 82px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+}
 
-    .welcome-card {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 20px;
-    }
+.content {
+  width: 100%;
+}
 
-    .welcome-title {
-      font-size: 28px;
-      font-weight: 700;
-      margin: 0 0 18px 0;
-      letter-spacing: -0.5px;
-    }
+.title {
+  font-size: clamp(18px, 2.5vw, 25px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 7px;
+  color: #111;
+}
 
-    .account {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-      color: inherit;
-      border-radius: 16px;
-      padding: 8px;
-      margin-left: -8px;
-      transition: background 0.15s ease;
-    }
+.account {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: inherit;
+  max-width: 100%;
+  border-radius: 10px;
+  padding: 2px 5px 2px 2px;
+}
 
-    .account:hover {
-      background: #eeeeee;
-    }
+.account:hover {
+  background: #eeeeee;
+}
 
-    .avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      background: #ddd;
-      flex-shrink: 0;
-    }
+.avatar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  background: #ddd;
+}
 
-    .account-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 0;
-    }
+.account-info {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
 
-    .display-name {
-      font-size: 19px;
-      font-weight: 700;
-      line-height: 1.25;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+.display-name {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45vw;
+}
 
-    .username {
-      margin-top: 3px;
-      font-size: 15px;
-      color: #65676b;
-      line-height: 1.25;
-    }
+.username {
+  font-size: 13px;
+  color: #65676b;
+  white-space: nowrap;
+}
 
-    .signin {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 18px;
-      border-radius: 10px;
-      border: 0;
-      background: #111;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.15s ease;
-    }
+.signin {
+  border: 0;
+  border-radius: 9px;
+  padding: 7px 13px;
+  background: #111;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-    .signin:hover {
-      opacity: 0.85;
-    }
+.signin:hover {
+  opacity: .85;
+}
 
-    .loading {
-      color: #777;
-      font-size: 15px;
-    }
+.loading {
+  font-size: 13px;
+  color: #777;
+}
 
-    @media (max-width: 600px) {
-      .welcome-card {
-        padding: 20px 16px;
-      }
+/* Mobile */
+@media (max-width: 600px) {
 
-      .welcome-title {
-        font-size: 24px;
-      }
+  .welcome {
+    height: 78px;
+    padding: 9px 10px;
+  }
 
-      .avatar {
-        width: 56px;
-        height: 56px;
-      }
+  .title {
+    font-size: 19px;
+    margin-bottom: 6px;
+  }
 
-      .display-name {
-        font-size: 18px;
-      }
+  .avatar {
+    width: 31px;
+    height: 31px;
+    min-width: 31px;
+  }
 
-      .username {
-        font-size: 14px;
-      }
-    }
-  </style>
+  .display-name {
+    font-size: 14px;
+    max-width: 42vw;
+  }
+
+  .username {
+    font-size: 12px;
+  }
+
+  .account-info {
+    gap: 5px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="welcome-card">
+<div class="welcome">
 
-    <h1 class="welcome-title">
-      Welcome Back, <span id="welcomeName">...</span>
-    </h1>
+  <div class="content">
+
+    <div class="title">
+      Welcome Back, <span id="welcomeName">there</span>
+    </div>
 
     <div id="accountArea">
-      <div class="loading">Loading account...</div>
+      <div class="loading">Loading...</div>
     </div>
 
   </div>
 
-  <script>
-    const WORKER =
-      "https://garts-comments.w8361346.workers.dev";
+</div>
 
-    const accountArea =
-      document.getElementById("accountArea");
+<script>
 
-    const welcomeName =
-      document.getElementById("welcomeName");
+const WORKER =
+  "https://garts-comments.w8361346.workers.dev";
+
+const welcomeName =
+  document.getElementById("welcomeName");
+
+const accountArea =
+  document.getElementById("accountArea");
 
 
-    function escapeHTML(value) {
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function openLogin() {
+
+  const width = 500;
+  const height = 650;
+
+  const left =
+    window.screenX +
+    (window.outerWidth - width) / 2;
+
+  const top =
+    window.screenY +
+    (window.outerHeight - height) / 2;
+
+  window.open(
+    WORKER + "/oauth/login?return=welcome",
+    "gartsLogin",
+    `width=${width},height=${height},left=${left},top=${top}`
+  );
+
+}
+
+
+async function loadAccount() {
+
+  try {
+
+    const response =
+      await fetch(WORKER + "/api/me", {
+        credentials: "include"
+      });
+
+    const data =
+      await response.json();
+
+    if (!data.success || !data.user) {
+
+      showLoggedOut();
+      return;
+
     }
 
+    showAccount(data.user);
 
-    function openLogin() {
-      const width = 500;
-      const height = 700;
+  } catch (error) {
 
-      const left =
-        window.screenX +
-        (window.outerWidth - width) / 2;
+    console.error(error);
+    showLoggedOut();
 
-      const top =
-        window.screenY +
-        (window.outerHeight - height) / 2;
+  }
 
-      window.open(
-        WORKER + "/oauth/login?return=welcome",
-        "gartsLogin",
-        `width=${width},height=${height},left=${left},top=${top}`
-      );
-    }
+}
 
 
-    async function loadAccount() {
-      try {
-        const response =
-          await fetch(WORKER + "/api/me", {
-            credentials: "include"
-          });
+function showAccount(user) {
 
-        const data = await response.json();
+  const username =
+    user.gartsUsername ||
+    user.login ||
+    "user";
 
-        if (!data.success || !data.user) {
-          showLoggedOut();
-          return;
-        }
+  const displayName =
+    user.name ||
+    user.login ||
+    username;
 
-        showAccount(data.user);
+  const avatar =
+    user.avatarUrl ||
+    "https://github.com/identicons/" +
+    encodeURIComponent(username) +
+    ".png";
 
-      } catch (error) {
-        console.error(error);
-        showLoggedOut();
-      }
-    }
+  welcomeName.textContent =
+    displayName;
 
+  accountArea.innerHTML = `
 
-    function showAccount(user) {
+    <a
+      class="account"
+      href="/users/${encodeURIComponent(username)}"
+      title="Open profile"
+    >
 
-      const username =
-        user.gartsUsername ||
-        user.login ||
-        "user";
+      <img
+        class="avatar"
+        src="${escapeHTML(avatar)}"
+        alt=""
+      >
 
-      const displayName =
-        user.name ||
-        user.login ||
-        username;
+      <div class="account-info">
 
-      const avatar =
-        user.avatarUrl ||
-        "https://github.com/identicons/" +
-        encodeURIComponent(username) +
-        ".png";
+        <div class="display-name">
+          ${escapeHTML(displayName)}
+        </div>
 
-      welcomeName.textContent = displayName;
+        <div class="username">
+          @${escapeHTML(username)}
+        </div>
 
-      accountArea.innerHTML = `
-        <a
-          class="account"
-          href="/users/${encodeURIComponent(username)}"
-          title="Open your GAccount"
-        >
+      </div>
 
-          <img
-            class="avatar"
-            src="${escapeHTML(avatar)}"
-            alt=""
-            onerror="this.style.display='none'"
-          >
+    </a>
 
-          <div class="account-info">
+  `;
 
-            <div class="display-name">
-              ${escapeHTML(displayName)}
-            </div>
-
-            <div class="username">
-              @${escapeHTML(username)}
-            </div>
-
-          </div>
-
-        </a>
-      `;
-    }
+}
 
 
-    function showLoggedOut() {
+function showLoggedOut() {
 
-      welcomeName.textContent = "there";
+  welcomeName.textContent =
+    "there";
 
-      accountArea.innerHTML = `
-        <button
-          class="signin"
-          onclick="openLogin()"
-        >
-          Sign in with GitHub
-        </button>
-      `;
-    }
+  accountArea.innerHTML = `
 
+    <button
+      class="signin"
+      onclick="openLogin()"
+    >
+      Sign in with GitHub
+    </button>
 
-    /*
-      OAuth callback sends this message
-      back to the page after login.
-    */
+  `;
 
-    window.addEventListener("message", event => {
-
-      if (!event.data)
-        return;
-
-      if (event.data.type !== "garts-auth")
-        return;
-
-      /*
-        The Worker has successfully authenticated
-        the user. Reload the account information.
-      */
-
-      loadAccount();
-    });
+}
 
 
-    loadAccount();
+window.addEventListener("message", event => {
 
-  </script>
+  if (!event.data)
+    return;
+
+  if (event.data.type !== "garts-auth")
+    return;
+
+  loadAccount();
+
+});
+
+
+loadAccount();
+
+</script>
 
 </body>
 </html>
