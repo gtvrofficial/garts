@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,265 +7,432 @@
 <title>Comments</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body {
-        margin: 0;
-        background: #f0f2f5;
-        color: #050505;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: #050505;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    width: 100%;
+}
+
+.comments-container {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8px;
+}
+
+/* HEADER */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.login-button {
+    border: none;
+    background: #1877f2;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background: #166fe5;
+}
+
+.user-area {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #65676b;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* LOGIN MESSAGE */
+
+.login-message {
+    background: rgba(240, 242, 245, .8);
+    border-radius: 14px;
+    padding: 13px;
+    margin-bottom: 15px;
+    color: #65676b;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* COMMENT BOX */
+
+.comment-box {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    flex: 1;
+    resize: none;
+    min-height: 44px;
+    max-height: 140px;
+
+    border: 1px solid #ccd0d5;
+    border-radius: 18px;
+
+    padding: 11px 15px;
+
+    font-size: 15px;
+    font-family: inherit;
+
+    outline: none;
+
+    background: rgba(240, 242, 245, .9);
+}
+
+textarea:focus {
+    border-color: #1877f2;
+    background: rgba(255, 255, 255, .95);
+}
+
+.post-button {
+    align-self: flex-end;
+
+    border: none;
+    background: #1877f2;
+    color: white;
+
+    padding: 10px 17px;
+    border-radius: 12px;
+
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.post-button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+/* COMMENTS */
+
+.comment {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.comment-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+
+.comment-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.comment-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-card {
+    position: relative;
+
+    background: rgba(240, 242, 245, .9);
+
+    border-radius: 16px;
+
+    padding: 10px 42px 10px 13px;
+
+    width: fit-content;
+    max-width: 100%;
+}
+
+.comment-author {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.comment-text {
+    font-size: 15px;
+    line-height: 1.35;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #65676b;
+    margin: 4px 0 0 4px;
+}
+
+/* THREE DOT MENU */
+
+.comment-menu {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+
+.menu-button {
+    width: 28px;
+    height: 28px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #65676b;
+
+    font-size: 18px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.menu-button:hover {
+    background: rgba(0, 0, 0, .08);
+}
+
+.menu-dropdown {
+    display: none;
+
+    position: absolute;
+    right: 0;
+    top: 32px;
+
+    min-width: 130px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, .18);
+
+    overflow: hidden;
+
+    z-index: 50;
+}
+
+.menu-dropdown button {
+    width: 100%;
+
+    border: none;
+    background: white;
+
+    padding: 10px 13px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.menu-dropdown button:hover {
+    background: #f0f2f5;
+}
+
+.delete-button {
+    color: #e41e3f;
+}
+
+/* REPLIES */
+
+.reply {
+    margin-left: 47px;
+}
+
+.reply .comment-card {
+    border-radius: 14px;
+}
+
+/* EMPTY */
+
+.empty {
+    text-align: center;
+    color: #65676b;
+    padding: 20px 5px;
+}
+
+/* STATUS */
+
+.status {
+    font-size: 13px;
+    color: #65676b;
+    margin: 7px 0 10px;
+    text-align: center;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
 
     .comments-container {
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto;
-        padding: 12px;
-    }
-
-    .card {
-        background: white;
-        border-radius: 12px;
-        padding: 16px;
-        box-shadow: 0 1px 3px rgba(0,0,0,.12);
-    }
-
-    .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 15px;
+        padding: 5px;
     }
 
     .title {
-        font-size: 20px;
-        font-weight: 700;
+        font-size: 18px;
     }
 
     .login-button {
-        border: none;
-        background: #1877f2;
-        color: white;
-        padding: 9px 14px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
+        font-size: 13px;
+        padding: 8px 12px;
     }
 
-    .login-button:hover {
-        background: #166fe5;
-    }
-
-    .user-area {
-        display: none;
-        align-items: center;
-        gap: 8px;
-        font-size: 14px;
-        color: #65676b;
-    }
-
-    .avatar {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .comment-box {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 18px;
-    }
-
-    textarea {
-        flex: 1;
-        resize: none;
-        min-height: 42px;
-        max-height: 140px;
-        border: 1px solid #ccd0d5;
-        border-radius: 20px;
-        padding: 11px 15px;
-        font-size: 15px;
-        font-family: inherit;
-        outline: none;
-        background: #f0f2f5;
-    }
-
-    textarea:focus {
-        border-color: #1877f2;
-        background: white;
-    }
-
-    .post-button {
-        align-self: flex-end;
-        border: none;
-        background: #1877f2;
-        color: white;
-        padding: 10px 16px;
-        border-radius: 20px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .post-button:disabled {
-        opacity: .5;
-        cursor: default;
-    }
-
-    .login-message {
-        background: #f0f2f5;
-        border-radius: 10px;
-        padding: 13px;
-        margin-bottom: 16px;
-        color: #65676b;
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .comment {
-        margin-top: 15px;
-    }
-
-    .comment-content {
-        background: #f0f2f5;
-        border-radius: 14px;
-        padding: 10px 13px;
-        display: inline-block;
-        max-width: 100%;
-    }
-
-    .comment-author {
-        font-weight: 700;
-        font-size: 14px;
-        margin-bottom: 3px;
-    }
-
-    .comment-text {
-        font-size: 15px;
-        white-space: pre-wrap;
-        word-break: break-word;
-    }
-
-    .comment-date {
-        font-size: 12px;
-        color: #65676b;
-        margin: 4px 0 0 12px;
+    .comment-avatar {
+        width: 34px;
+        height: 34px;
     }
 
     .reply {
-        margin-left: 35px;
+        margin-left: 38px;
     }
 
-    .reply-line {
-        border-left: 2px solid #ddd;
-        padding-left: 10px;
+    .comment-card {
+        border-radius: 15px;
     }
 
-    .empty {
-        text-align: center;
-        color: #65676b;
-        padding: 20px 5px;
+    .comment-box {
+        align-items: flex-end;
     }
 
-    .status {
-        font-size: 13px;
-        color: #65676b;
-        margin-top: 8px;
-        text-align: center;
+    textarea {
+        min-width: 0;
     }
-
-    @media (max-width: 600px) {
-        .comments-container {
-            padding: 6px;
-        }
-
-        .card {
-            border-radius: 10px;
-            padding: 12px;
-        }
-
-        .header {
-            align-items: flex-start;
-        }
-
-        .title {
-            font-size: 18px;
-        }
-
-        .login-button {
-            font-size: 13px;
-            padding: 8px 11px;
-        }
-
-        .comment-box {
-            flex-direction: column;
-        }
-
-        .post-button {
-            align-self: flex-end;
-        }
-    }
+}
 </style>
 </head>
 
 <body>
 
 <div class="comments-container">
-    <div class="card">
 
-        <div class="header">
-            <div class="title">Comments</div>
+    <div class="header">
 
-            <button
-                id="loginButton"
-                class="login-button"
-                onclick="login()">
-                Sign in with GitHub
-            </button>
-
-            <div id="userArea" class="user-area">
-                <img id="avatar" class="avatar" src="" alt="">
-                <span id="username"></span>
-            </div>
+        <div class="title">
+            Comments
         </div>
 
-        <div id="loginMessage" class="login-message">
-            Sign in with GitHub to leave a comment.
-        </div>
+        <button
+            id="loginButton"
+            class="login-button"
+            onclick="login()">
+            Sign in with GitHub
+        </button>
 
-        <div id="commentBox" class="comment-box" style="display:none;">
-            <textarea
-                id="commentInput"
-                placeholder="Write a comment..."
-                maxlength="2000"></textarea>
+        <div
+            id="userArea"
+            class="user-area">
 
-            <button
-                id="postButton"
-                class="post-button"
-                onclick="postComment()">
-                Post
-            </button>
-        </div>
+            <img
+                id="avatar"
+                class="avatar"
+                src=""
+                alt="">
 
-        <div id="status" class="status"></div>
+            <span id="username"></span>
 
-        <div id="comments">
-            <div class="empty">Loading comments...</div>
         </div>
 
     </div>
+
+
+    <div
+        id="loginMessage"
+        class="login-message">
+
+        Sign in with GitHub to leave a comment.
+
+    </div>
+
+
+    <div
+        id="commentBox"
+        class="comment-box"
+        style="display:none;">
+
+        <textarea
+            id="commentInput"
+            placeholder="Write a comment..."
+            maxlength="2000"></textarea>
+
+        <button
+            id="postButton"
+            class="post-button"
+            onclick="postComment()">
+
+            Post
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="status"
+        class="status"></div>
+
+
+    <div id="comments">
+
+        <div class="empty">
+            Loading comments...
+        </div>
+
+    </div>
+
 </div>
 
-<script>
-const WORKER = "https://garts-comments.w8361346.workers.dev";
-const TOKEN_KEY = "garts_session_token";
 
-const params = new URLSearchParams(window.location.search);
-const postId = params.get("id");
+<script>
+
+const WORKER =
+    "https://garts-comments.w8361346.workers.dev";
+
+const TOKEN_KEY =
+    "garts_session_token";
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const postId =
+    params.get("id");
 
 let sessionToken = null;
 let currentUser = null;
@@ -278,6 +444,7 @@ let popup = null;
 ----------------------------- */
 
 function getToken() {
+
     try {
         return localStorage.getItem(TOKEN_KEY);
     } catch {
@@ -285,9 +452,14 @@ function getToken() {
     }
 }
 
+
 function saveToken(token) {
+
     try {
-        localStorage.setItem(TOKEN_KEY, token);
+        localStorage.setItem(
+            TOKEN_KEY,
+            token
+        );
     } catch {}
 
     sessionToken = token;
@@ -306,24 +478,34 @@ async function api(path, options = {}) {
     };
 
     if (sessionToken) {
-        headers["Authorization"] = "Bearer " + sessionToken;
+        headers["Authorization"] =
+            "Bearer " + sessionToken;
     }
 
-    const response = await fetch(WORKER + path, {
-        ...options,
-        headers
-    });
+    const response =
+        await fetch(
+            WORKER + path,
+            {
+                ...options,
+                headers
+            }
+        );
 
     let data;
 
     try {
         data = await response.json();
     } catch {
-        throw new Error("Invalid server response.");
+        throw new Error(
+            "Invalid server response."
+        );
     }
 
     if (!response.ok) {
-        throw new Error(data.error || "Request failed.");
+        throw new Error(
+            data.error ||
+            "Request failed."
+        );
     }
 
     return data;
@@ -341,21 +523,35 @@ function login() {
 
     const left =
         window.screenX +
-        Math.max(0, (window.outerWidth - width) / 2);
+        Math.max(
+            0,
+            (window.outerWidth - width) / 2
+        );
 
     const top =
         window.screenY +
-        Math.max(0, (window.outerHeight - height) / 2);
+        Math.max(
+            0,
+            (window.outerHeight - height) / 2
+        );
 
-    popup = window.open(
-        WORKER + "/auth/github?postId=" +
-        encodeURIComponent(postId || ""),
-        "gartsGitHubLogin",
-        `width=${width},height=${height},left=${left},top=${top}`
-    );
+    popup =
+        window.open(
+            WORKER +
+            "/auth/github?postId=" +
+            encodeURIComponent(
+                postId || ""
+            ),
+
+            "gartsGitHubLogin",
+
+            `width=${width},height=${height},left=${left},top=${top}`
+        );
 
     if (!popup) {
-        setStatus("Please allow popups for this site.");
+        setStatus(
+            "Please allow popups for this site."
+        );
     }
 }
 
@@ -364,36 +560,50 @@ function login() {
    AUTH MESSAGE
 ----------------------------- */
 
-window.addEventListener("message", async (event) => {
+window.addEventListener(
+    "message",
+    async event => {
 
-    if (event.origin !== WORKER) {
-        return;
+        if (event.origin !== WORKER) {
+            return;
+        }
+
+        const data = event.data;
+
+        if (
+            !data ||
+            data.type !== "garts-auth"
+        ) {
+            return;
+        }
+
+        if (!data.token) {
+
+            setStatus(
+                "Login failed."
+            );
+
+            return;
+        }
+
+        saveToken(data.token);
+
+        currentUser =
+            data.user ||
+            data.profile ||
+            null;
+
+        await loadUser();
+
+        if (
+            popup &&
+            !popup.closed
+        ) {
+            popup.close();
+        }
+
     }
-
-    const data = event.data;
-
-    if (!data || data.type !== "garts-auth") {
-        return;
-    }
-
-    if (!data.token) {
-        setStatus("Login failed.");
-        return;
-    }
-
-    saveToken(data.token);
-
-    currentUser =
-        data.user ||
-        data.profile ||
-        null;
-
-    await loadUser();
-
-    if (popup && !popup.closed) {
-        popup.close();
-    }
-});
+);
 
 
 /* -----------------------------
@@ -403,26 +613,35 @@ window.addEventListener("message", async (event) => {
 async function loadUser() {
 
     if (!sessionToken) {
+
         showLoggedOut();
+
         return;
     }
 
     try {
 
-        const data = await api("/api/me");
+        const data =
+            await api("/api/me");
 
         if (!data.loggedIn) {
+
             clearLogin();
+
             return;
         }
 
-        currentUser = data.user;
+        currentUser =
+            data.user;
 
         showLoggedIn();
 
     } catch (error) {
 
-        console.error("Authentication check failed:", error);
+        console.error(
+            "Authentication check failed:",
+            error
+        );
 
         clearLogin();
     }
@@ -435,10 +654,22 @@ async function loadUser() {
 
 function showLoggedIn() {
 
-    document.getElementById("loginButton").style.display = "none";
-    document.getElementById("userArea").style.display = "flex";
-    document.getElementById("commentBox").style.display = "flex";
-    document.getElementById("loginMessage").style.display = "none";
+    document
+        .getElementById("loginButton")
+        .style.display = "none";
+
+    document
+        .getElementById("userArea")
+        .style.display = "flex";
+
+    document
+        .getElementById("commentBox")
+        .style.display = "flex";
+
+    document
+        .getElementById("loginMessage")
+        .style.display = "none";
+
 
     const username =
         currentUser?.login ||
@@ -446,11 +677,18 @@ function showLoggedIn() {
         currentUser?.displayName ||
         "GitHub user";
 
-    document.getElementById("username").textContent =
+
+    document
+        .getElementById("username")
+        .textContent =
         username;
 
+
     if (currentUser?.avatar_url) {
-        document.getElementById("avatar").src =
+
+        document
+            .getElementById("avatar")
+            .src =
             currentUser.avatar_url;
     }
 }
@@ -458,10 +696,21 @@ function showLoggedIn() {
 
 function showLoggedOut() {
 
-    document.getElementById("loginButton").style.display = "block";
-    document.getElementById("userArea").style.display = "none";
-    document.getElementById("commentBox").style.display = "none";
-    document.getElementById("loginMessage").style.display = "block";
+    document
+        .getElementById("loginButton")
+        .style.display = "block";
+
+    document
+        .getElementById("userArea")
+        .style.display = "none";
+
+    document
+        .getElementById("commentBox")
+        .style.display = "none";
+
+    document
+        .getElementById("loginMessage")
+        .style.display = "block";
 }
 
 
@@ -471,7 +720,9 @@ function clearLogin() {
     currentUser = null;
 
     try {
-        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(
+            TOKEN_KEY
+        );
     } catch {}
 
     showLoggedOut();
@@ -479,32 +730,43 @@ function clearLogin() {
 
 
 /* -----------------------------
-   COMMENTS
+   LOAD COMMENTS
 ----------------------------- */
 
 async function loadComments() {
 
     if (!postId) {
-        document.getElementById("comments").innerHTML =
+
+        document
+            .getElementById("comments")
+            .innerHTML =
             '<div class="empty">No post ID provided.</div>';
+
         return;
     }
 
     try {
 
-        const data = await api(
-            "/?id=" + encodeURIComponent(postId)
-        );
+        const data =
+            await api(
+                "/?id=" +
+                encodeURIComponent(postId)
+            );
 
         renderComments(
-            data.discussion?.comments?.nodes || []
+            data.discussion
+                ?.comments
+                ?.nodes ||
+            []
         );
 
     } catch (error) {
 
         console.error(error);
 
-        document.getElementById("comments").innerHTML =
+        document
+            .getElementById("comments")
+            .innerHTML =
             '<div class="empty">Unable to load comments.</div>';
     }
 }
@@ -517,7 +779,9 @@ async function loadComments() {
 function renderComments(comments) {
 
     const container =
-        document.getElementById("comments");
+        document.getElementById(
+            "comments"
+        );
 
     if (!comments.length) {
 
@@ -529,63 +793,127 @@ function renderComments(comments) {
 
     container.innerHTML = "";
 
-    const topLevel = comments.filter(
-        comment => !comment.replyTo
-    );
+    const topLevel =
+        comments.filter(
+            comment =>
+                !comment.replyTo
+        );
 
-    const replies = comments.filter(
-        comment => comment.replyTo
-    );
+    const replies =
+        comments.filter(
+            comment =>
+                comment.replyTo
+        );
+
 
     topLevel.forEach(comment => {
 
         container.appendChild(
-            createComment(comment)
+            createComment(
+                comment
+            )
         );
 
+
         replies
-            .filter(reply =>
-                reply.replyTo?.id === comment.id
+            .filter(
+                reply =>
+                    reply.replyTo?.id ===
+                    comment.id
             )
             .forEach(reply => {
 
-                const replyElement =
-                    createComment(reply, true);
+                container.appendChild(
+                    createComment(
+                        reply,
+                        true
+                    )
+                );
 
-                container.appendChild(replyElement);
             });
+
     });
 }
 
 
 /* -----------------------------
-   COMMENT ELEMENT
+   CREATE COMMENT
 ----------------------------- */
 
-function createComment(comment, isReply = false) {
+function createComment(
+    comment,
+    isReply = false
+) {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     wrapper.className =
-        "comment" + (isReply ? " reply" : "");
+        "comment" +
+        (
+            isReply
+                ? " reply"
+                : ""
+        );
 
-    const content =
-        document.createElement("div");
 
-    content.className =
-        isReply
-            ? "reply-line"
-            : "";
+    const inner =
+        document.createElement(
+            "div"
+        );
 
-    const bubble =
-        document.createElement("div");
+    inner.className =
+        "comment-inner";
 
-    bubble.className =
-        "comment-content";
+
+    /* AVATAR */
+
+    const avatar =
+        document.createElement(
+            "img"
+        );
+
+    avatar.className =
+        "comment-avatar";
+
+    avatar.src =
+        comment.author?.avatarUrl ||
+        comment.author?.avatar_url ||
+        "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png";
+
+    avatar.alt = "";
+
+
+    /* MAIN */
+
+    const main =
+        document.createElement(
+            "div"
+        );
+
+    main.className =
+        "comment-main";
+
+
+    /* CARD */
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+    card.className =
+        "comment-card";
+
+
+    /* AUTHOR */
 
     const author =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     author.className =
         "comment-author";
@@ -595,33 +923,277 @@ function createComment(comment, isReply = false) {
         comment.author?.name ||
         "GitHub user";
 
+
+    /* BODY */
+
     const text =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     text.className =
         "comment-text";
 
     text.textContent =
-        comment.body || "";
+        comment.body ||
+        "";
 
-    bubble.appendChild(author);
-    bubble.appendChild(text);
+
+    card.appendChild(
+        author
+    );
+
+    card.appendChild(
+        text
+    );
+
+
+    /* DELETE MENU */
+
+    const authorLogin =
+        comment.author?.login ||
+        "";
+
+    const currentLogin =
+        currentUser?.login ||
+        "";
+
+    /*
+     * We display the menu only when
+     * the visible GitHub author matches
+     * the logged-in user.
+     *
+     * The Worker still performs the
+     * actual security check.
+     */
+
+    if (
+        currentLogin &&
+        authorLogin &&
+        currentLogin === authorLogin
+    ) {
+
+        const menu =
+            document.createElement(
+                "div"
+            );
+
+        menu.className =
+            "comment-menu";
+
+
+        const menuButton =
+            document.createElement(
+                "button"
+            );
+
+        menuButton.className =
+            "menu-button";
+
+        menuButton.textContent =
+            "⋯";
+
+        menuButton.setAttribute(
+            "aria-label",
+            "Comment options"
+        );
+
+
+        const dropdown =
+            document.createElement(
+                "div"
+            );
+
+        dropdown.className =
+            "menu-dropdown";
+
+
+        const deleteButton =
+            document.createElement(
+                "button"
+            );
+
+        deleteButton.className =
+            "delete-button";
+
+        deleteButton.textContent =
+            "Delete comment";
+
+
+        deleteButton.onclick =
+            async () => {
+
+                dropdown.style.display =
+                    "none";
+
+                await deleteComment(
+                    comment.id
+                );
+            };
+
+
+        menuButton.onclick =
+            event => {
+
+                event.stopPropagation();
+
+                const open =
+                    dropdown.style.display ===
+                    "block";
+
+                closeMenus();
+
+                dropdown.style.display =
+                    open
+                        ? "none"
+                        : "block";
+            };
+
+
+        dropdown.appendChild(
+            deleteButton
+        );
+
+        menu.appendChild(
+            menuButton
+        );
+
+        menu.appendChild(
+            dropdown
+        );
+
+        card.appendChild(
+            menu
+        );
+    }
+
+
+    main.appendChild(
+        card
+    );
+
+
+    /* DATE */
 
     const date =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     date.className =
         "comment-date";
 
     date.textContent =
-        formatDate(comment.createdAt);
+        formatDate(
+            comment.createdAt
+        );
 
-    content.appendChild(bubble);
-    content.appendChild(date);
+    main.appendChild(
+        date
+    );
 
-    wrapper.appendChild(content);
+
+    inner.appendChild(
+        avatar
+    );
+
+    inner.appendChild(
+        main
+    );
+
+    wrapper.appendChild(
+        inner
+    );
+
 
     return wrapper;
+}
+
+
+/* -----------------------------
+   CLOSE MENUS
+----------------------------- */
+
+function closeMenus() {
+
+    document
+        .querySelectorAll(
+            ".menu-dropdown"
+        )
+        .forEach(menu => {
+
+            menu.style.display =
+                "none";
+        });
+}
+
+
+document.addEventListener(
+    "click",
+    closeMenus
+);
+
+
+/* -----------------------------
+   DELETE COMMENT
+----------------------------- */
+
+async function deleteComment(
+    commentId
+) {
+
+    if (!commentId) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Delete this comment?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    setStatus(
+        "Deleting..."
+    );
+
+
+    try {
+
+        await api(
+            "/api/comment/delete",
+            {
+                method: "POST",
+
+                body: JSON.stringify({
+                    commentId
+                })
+            }
+        );
+
+
+        setStatus(
+            "Comment deleted."
+        );
+
+
+        await loadComments();
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        setStatus(
+            error.message ||
+            "Could not delete comment."
+        );
+    }
 }
 
 
@@ -638,27 +1210,41 @@ async function postComment() {
         return;
     }
 
+
     const input =
-        document.getElementById("commentInput");
+        document.getElementById(
+            "commentInput"
+        );
 
     const button =
-        document.getElementById("postButton");
+        document.getElementById(
+            "postButton"
+        );
+
 
     const body =
         input.value.trim();
+
 
     if (!body) {
         return;
     }
 
+
     button.disabled = true;
-    setStatus("Posting...");
+
+    setStatus(
+        "Posting..."
+    );
+
 
     try {
 
         await api(
             "/api/comment?id=" +
-            encodeURIComponent(postId),
+            encodeURIComponent(
+                postId
+            ),
             {
                 method: "POST",
 
@@ -668,21 +1254,29 @@ async function postComment() {
             }
         );
 
+
         input.value = "";
 
-        setStatus("Comment posted.");
+        setStatus(
+            "Comment posted."
+        );
+
 
         await loadComments();
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         if (
             error.message
                 .toLowerCase()
                 .includes("auth")
         ) {
+
             clearLogin();
 
             setStatus(
@@ -714,9 +1308,14 @@ function formatDate(date) {
         return "";
     }
 
-    const d = new Date(date);
+    const d =
+        new Date(date);
 
-    if (Number.isNaN(d.getTime())) {
+    if (
+        Number.isNaN(
+            d.getTime()
+        )
+    ) {
         return "";
     }
 
@@ -730,21 +1329,34 @@ function formatDate(date) {
 
 function setStatus(message) {
 
-    document.getElementById("status").textContent =
+    document
+        .getElementById("status")
+        .textContent =
         message;
+
 
     if (message) {
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            const status =
-                document.getElementById("status");
+                const status =
+                    document
+                        .getElementById(
+                            "status"
+                        );
 
-            if (status.textContent === message) {
-                status.textContent = "";
-            }
+                if (
+                    status.textContent ===
+                    message
+                ) {
+                    status.textContent =
+                        "";
+                }
 
-        }, 4000);
+            },
+            4000
+        );
     }
 }
 
@@ -755,15 +1367,16 @@ function setStatus(message) {
 
 (async function init() {
 
-    sessionToken = getToken();
+    sessionToken =
+        getToken();
 
     await loadUser();
 
     await loadComments();
 
 })();
+
 </script>
 
 </body>
 </html>
-```
