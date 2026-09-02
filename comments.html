@@ -3,33 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Comments</title>
 
+  <!-- Allow embedding where the browser permits it -->
+  <meta http-equiv="Content-Security-Policy"
+        content="frame-ancestors 'self' https://sites.google.com https://*.googleusercontent.com;">
+
   <style>
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
       width: 100%;
-      background: transparent;
+      min-height: 100%;
+      background: #f9f9f9;
       font-family: Arial, Helvetica, sans-serif;
     }
 
     .comments {
       width: 100%;
       max-width: 900px;
-      margin: auto;
-      padding: 10px;
+      margin: 0 auto;
+      padding: 12px;
+      background: #f9f9f9;
+      border-radius: 12px;
     }
 
     .title {
+      margin: 0 0 14px;
       font-size: 20px;
       font-weight: 600;
-      margin-bottom: 12px;
+    }
+
+    #giscus {
+      width: 100%;
     }
 
     @media (max-width: 600px) {
       .comments {
-        padding: 5px;
+        padding: 8px 4px;
       }
 
       .title {
@@ -41,46 +54,117 @@
 
 <body>
 
-<div class="comments">
-  <div class="title">Comments</div>
-  <div id="giscus"></div>
-</div>
+  <div class="comments">
 
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const postId = params.get("id");
+    <div class="title">
+      Comments
+    </div>
 
-  if (!postId) {
-    document.getElementById("giscus").innerHTML =
-      "<p>This post does not have a comment ID.</p>";
-  } else {
+    <div id="giscus"></div>
 
-    const script = document.createElement("script");
+  </div>
 
-    script.src = "https://giscus.app/client.js";
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get("id");
 
-    script.setAttribute("data-repo", "gtvrofficial/garts");
-    script.setAttribute("data-repo-id", "R_kgDOUK6Pgg");
+    if (!postId) {
 
-    script.setAttribute("data-category", "General");
-    script.setAttribute("data-category-id", "DIC_kwDOUK6Pgs4DEvEc");
+      document.getElementById("giscus").innerHTML =
+        "<p>No post ID was provided.</p>";
 
-    script.setAttribute("data-mapping", "specific");
-    script.setAttribute("data-term", "post-" + postId);
+    } else {
 
-    script.setAttribute("data-strict", "0");
-    script.setAttribute("data-reactions-enabled", "1");
-    script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "bottom");
-    script.setAttribute("data-theme", "preferred_color_scheme");
-    script.setAttribute("data-lang", "en");
+      const script = document.createElement("script");
 
-    script.setAttribute("crossorigin", "anonymous");
-    script.async = true;
+      script.src = "https://giscus.app/client.js";
 
-    document.getElementById("giscus").appendChild(script);
-  }
-</script>
+      script.setAttribute(
+        "data-repo",
+        "gtvrofficial/garts"
+      );
+
+      script.setAttribute(
+        "data-repo-id",
+        "R_kgDOUK6Pgg"
+      );
+
+      script.setAttribute(
+        "data-category",
+        "General"
+      );
+
+      script.setAttribute(
+        "data-category-id",
+        "DIC_kwDOUK6Pgs4DEvEc"
+      );
+
+      /*
+       * Every post gets its own Giscus discussion.
+       *
+       * ?id=1  -> post-1
+       * ?id=2  -> post-2
+       * ?id=3  -> post-3
+       */
+
+      script.setAttribute(
+        "data-mapping",
+        "specific"
+      );
+
+      script.setAttribute(
+        "data-term",
+        "post-" + postId
+      );
+
+      script.setAttribute(
+        "data-strict",
+        "0"
+      );
+
+      script.setAttribute(
+        "data-reactions-enabled",
+        "1"
+      );
+
+      script.setAttribute(
+        "data-emit-metadata",
+        "0"
+      );
+
+      script.setAttribute(
+        "data-input-position",
+        "bottom"
+      );
+
+      /*
+       * Use the normal Giscus theme for now.
+       * We can change this to the custom #f9f9f9
+       * theme after the iframe issue is solved.
+       */
+
+      script.setAttribute(
+        "data-theme",
+        "preferred_color_scheme"
+      );
+
+      script.setAttribute(
+        "data-lang",
+        "en"
+      );
+
+      script.setAttribute(
+        "crossorigin",
+        "anonymous"
+      );
+
+      script.async = true;
+
+      document
+        .getElementById("giscus")
+        .appendChild(script);
+    }
+  </script>
 
 </body>
 </html>
