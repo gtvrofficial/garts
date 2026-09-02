@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>GARTS Profile</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #242424;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.profile-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+/* -------------------------
+   HEADER
+------------------------- */
+
+.profile-header {
+  position: relative;
+  min-height: 300px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e8e8e8,
+      #f5f5f5
+    );
+
+  border-radius: 0 0 18px 18px;
+  overflow: hidden;
+}
+
+.profile-cover {
+  position: absolute;
+  inset: 0;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.profile-cover-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05),
+      rgba(0,0,0,0.35)
+    );
+}
+
+/* -------------------------
+   PROFILE INFORMATION
+------------------------- */
+
+.profile-info {
+  position: relative;
+  z-index: 2;
+
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding: 24px;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 5px solid white;
+
+  background: #ddd;
+
+  box-shadow:
+    0 3px 15px rgba(0,0,0,0.2);
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+.profile-name {
+  color: white;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  text-shadow:
+    0 2px 5px rgba(0,0,0,0.4);
+}
+
+.profile-username {
+  color: rgba(255,255,255,0.9);
+
+  font-size: 15px;
+
+  margin-top: 2px;
+
+  text-shadow:
+    0 1px 4px rgba(0,0,0,0.4);
+}
+
+/* -------------------------
+   BADGES
+------------------------- */
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 10px;
+}
+
+.badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.9);
+
+  color: #242424;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* -------------------------
+   DESCRIPTION
+------------------------- */
+
+.description-section {
+  margin: 16px;
+
+  background: white;
+
+  border: 1px solid #e2e2e2;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+}
+
+.description-header {
+  width: 100%;
+
+  border: 0;
+
+  background: white;
+
+  padding: 14px 16px;
+
+  text-align: left;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.description-header:hover {
+  background: #f5f5f5;
+}
+
+.description-content {
+  display: none;
+
+  padding: 0 16px 16px;
+
+  color: #555;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  white-space: pre-wrap;
+}
+
+.description-content.open {
+  display: block;
+}
+
+/* -------------------------
+   POSTS
+------------------------- */
+
+.posts-section {
+  margin: 16px;
+}
+
+.posts-title {
+  font-size: 20px;
+  font-weight: 700;
+
+  margin-bottom: 12px;
+}
+
+.posts {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+}
+
+.post {
+  aspect-ratio: 1 / 1;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: #e9e9e9;
+}
+
+.post img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.no-posts {
+  padding: 35px 15px;
+
+  text-align: center;
+
+  color: #888;
+
+  background: white;
+
+  border: 1px solid #e2e2e2;
+
+  border-radius: 14px;
+}
+
+/* -------------------------
+   EDIT BUTTON
+------------------------- */
+
+.edit-profile {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  z-index: 50;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  padding: 13px 20px;
+
+  background: #1877f2;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.2);
+
+  display: none;
+}
+
+.edit-profile:hover {
+  opacity: 0.9;
+}
+
+/* -------------------------
+   LOADING / ERROR
+------------------------- */
+
+.loading {
+  min-height: 60vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #888;
+
+  padding: 30px;
+}
+
+.error {
+  margin: 20px;
+
+  padding: 15px;
+
+  border-radius: 12px;
+
+  background: #fff0f0;
+
+  border: 1px solid #ffd0d0;
+
+  color: #a00000;
+
+  display: none;
+}
+
+/* -------------------------
+   MOBILE
+------------------------- */
+
+@media (max-width: 600px) {
+
+  .profile-page {
+    padding-bottom: 90px;
+  }
+
+  .profile-header {
+    min-height: 260px;
+
+    border-radius:
+      0 0 14px 14px;
+  }
+
+  .profile-info {
+    min-height: 260px;
+
+    padding: 18px;
+  }
+
+  .profile-avatar {
+    width: 92px;
+    height: 92px;
+
+    border-width: 4px;
+  }
+
+  .profile-name {
+    font-size: 24px;
+  }
+
+  .profile-username {
+    font-size: 14px;
+  }
+
+  .posts {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .edit-profile {
+    right: 16px;
+    bottom: 16px;
+
+    padding:
+      12px 17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading" class="loading">
+  Loading profile...
+</div>
+
+<div id="error" class="error"></div>
+
+<div
+  id="profilePage"
+  class="profile-page"
+  style="display:none;"
+>
+
+  <!-- PROFILE HEADER -->
+
+  <section class="profile-header">
+
+    <div
+      id="cover"
+      class="profile-cover"
+    ></div>
+
+    <div class="profile-cover-overlay"></div>
+
+    <div class="profile-info">
+
+      <img
+        id="avatar"
+        class="profile-avatar"
+        src=""
+        alt="Profile avatar"
+      >
+
+      <div class="profile-name-row">
+
+        <div
+          id="displayName"
+          class="profile-name"
+        ></div>
+
+      </div>
+
+      <div
+        id="username"
+        class="profile-username"
+      ></div>
+
+      <div
+        id="badges"
+        class="badges"
+      ></div>
+
+    </div>
+
+  </section>
+
+  <!-- DESCRIPTION -->
+
+  <section class="description-section">
+
+    <button
+      id="descriptionButton"
+      class="description-header"
+    >
+      <span>Description</span>
+
+      <span id="descriptionArrow">
+        ▼
+      </span>
+    </button>
+
+    <div
+      id="description"
+      class="description-content"
+    ></div>
+
+  </section>
+
+  <!-- POSTS -->
+
+  <section class="posts-section">
+
+    <div class="posts-title">
+      Posts
+    </div>
+
+    <div
+      id="posts"
+      class="posts"
+    ></div>
+
+  </section>
+
+</div>
+
+<!-- OWNER ONLY -->
+
+<button
+  id="editProfile"
+  class="edit-profile"
+>
+  Edit profile
+</button>
+
+<script>
+
+const WORKER_URL =
+  "https://garts-comments.w8361346.workers.dev";
+
+/*
+  Profile URL formats supported:
+
+  profile.html?id=1234567
+
+  and eventually:
+
+  /users/1234567
+*/
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const profileId =
+  params.get("id") ||
+  params.get("user");
+
+const loading =
+  document.getElementById(
+    "loading"
+  );
+
+const errorBox =
+  document.getElementById(
+    "error"
+  );
+
+const profilePage =
+  document.getElementById(
+    "profilePage"
+  );
+
+const editButton =
+  document.getElementById(
+    "editProfile"
+  );
+
+const avatar =
+  document.getElementById(
+    "avatar"
+  );
+
+const cover =
+  document.getElementById(
+    "cover"
+  );
+
+const displayName =
+  document.getElementById(
+    "displayName"
+  );
+
+const username =
+  document.getElementById(
+    "username"
+  );
+
+const badges =
+  document.getElementById(
+    "badges"
+  );
+
+const description =
+  document.getElementById(
+    "description"
+  );
+
+const posts =
+  document.getElementById(
+    "posts"
+  );
+
+const descriptionButton =
+  document.getElementById(
+    "descriptionButton"
+  );
+
+const descriptionArrow =
+  document.getElementById(
+    "descriptionArrow"
+  );
+
+let session =
+  localStorage.getItem(
+    "garts_session"
+  );
+
+function showError(message) {
+
+  loading.style.display =
+    "none";
+
+  errorBox.textContent =
+    message;
+
+  errorBox.style.display =
+    "block";
+}
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+/*
+  Get the public profile.
+*/
+
+async function loadProfile() {
+
+  if (!profileId) {
+
+    showError(
+      "No profile ID was specified."
+    );
+
+    return;
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        WORKER_URL +
+        "/api/profile?id=" +
+        encodeURIComponent(
+          profileId
+        )
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      !response.ok ||
+      !data.success ||
+      !data.profile
+    ) {
+
+      throw new Error(
+        data.error ||
+        "Profile could not be loaded."
+      );
+
+    }
+
+    renderProfile(
+      data.profile
+    );
+
+    /*
+      IMPORTANT:
+
+      The Worker tells us whether
+      the authenticated user owns
+      this profile.
+
+      The browser does NOT decide
+      this itself.
+    */
+
+    if (
+      data.isOwner === true
+    ) {
+
+      editButton.style.display =
+        "block";
+
+      editButton.onclick =
+        function() {
+
+          window.location.href =
+            "edit-profile.html?id=" +
+            encodeURIComponent(
+              profileId
+            );
+
+        };
+
+    }
+
+    loading.style.display =
+      "none";
+
+    profilePage.style.display =
+      "block";
+
+  }
+  catch (error) {
+
+    console.error(
+      "Profile error:",
+      error
+    );
+
+    showError(
+      error.message
+    );
+
+  }
+
+}
+
+/*
+  Display profile.
+*/
+
+function renderProfile(
+  profile
+) {
+
+  displayName.textContent =
+    profile.displayName ||
+    profile.username ||
+    "GARTS User";
+
+  username.textContent =
+    "@" +
+    (
+      profile.username ||
+      "unknown"
+    );
+
+  avatar.src =
+    profile.avatarUrl ||
+    "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png";
+
+  if (
+    profile.coverUrl
+  ) {
+
+    cover.style.backgroundImage =
+      "url('" +
+      escapeCssUrl(
+        profile.coverUrl
+      ) +
+      "')";
+
+  }
+
+  /*
+    Badges
+  */
+
+  badges.innerHTML = "";
+
+  const badgeList =
+    Array.isArray(
+      profile.badges
+    )
+      ? profile.badges
+      : [];
+
+  badgeList.forEach(
+    function(badge) {
+
+      const element =
+        document.createElement(
+          "div"
+        );
+
+      element.className =
+        "badge";
+
+      element.textContent =
+        badge;
+
+      badges.appendChild(
+        element
+      );
+
+    }
+  );
+
+  /*
+    Description
+  */
+
+  description.textContent =
+    profile.description ||
+    "No description yet.";
+
+  /*
+    Posts
+  */
+
+  posts.innerHTML = "";
+
+  const postList =
+    Array.isArray(
+      profile.posts
+    )
+      ? profile.posts
+      : [];
+
+  if (
+    postList.length === 0
+  ) {
+
+    posts.innerHTML = `
+      <div class="no-posts">
+        No posts yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  postList.forEach(
+    function(post) {
+
+      const postElement =
+        document.createElement(
+          "div"
+        );
+
+      postElement.className =
+        "post";
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.src =
+        post.imageUrl;
+
+      image.alt =
+        post.alt ||
+        "";
+
+      postElement.appendChild(
+        image
+      );
+
+      posts.appendChild(
+        postElement
+      );
+
+    }
+  );
+
+}
+
+/*
+  Prevent URLs from breaking
+  the CSS declaration.
+*/
+
+function escapeCssUrl(
+  value
+) {
+
+  return String(value)
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'");
+
+}
+
+/*
+  Description collapse.
+*/
+
+descriptionButton.addEventListener(
+  "click",
+  function() {
+
+    description.classList.toggle(
+      "open"
+    );
+
+    const open =
+      description.classList.contains(
+        "open"
+      );
+
+    descriptionArrow.textContent =
+      open
+        ? "▲"
+        : "▼";
+
+  }
+);
+
+/*
+  Start.
+*/
+
+loadProfile();
+
+</script>
+
+</body>
+</html>
