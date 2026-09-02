@@ -2,400 +2,905 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>GARTS Account</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  background: transparent !important;
-  overflow: hidden !important;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    html,
+    body {
+        margin: 0;
+        padding: 0;
 
-.welcome {
-  width: 100%;
-  padding: 8px 12px;
-}
+        width: 100%;
 
-.title {
-  margin: 0 0 6px;
-  font-size: clamp(18px, 3vw, 24px);
-  line-height: 1.15;
-  font-weight: 700;
-  color: #111;
-}
+        background: transparent;
 
-.account {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  max-width: 100%;
-  padding: 2px 6px 2px 2px;
-  border-radius: 10px;
-  color: inherit;
-  text-decoration: none;
-}
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Helvetica,
+            Arial,
+            sans-serif;
 
-.account:hover {
-  background: rgba(0,0,0,.06);
-}
+        overflow: hidden;
+    }
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  background: #ddd;
-}
 
-.account-info {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  min-width: 0;
-}
+    /* =========================
+       MAIN ACCOUNT
+       ========================= */
 
-.display-name {
-  font-size: 15px;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 45vw;
-}
+    #root {
+        width: 100%;
+    }
 
-.username {
-  font-size: 13px;
-  color: #65676b;
-  white-space: nowrap;
-}
 
-.signin {
-  appearance: none;
-  border: 0;
-  padding: 7px 13px;
-  border-radius: 9px;
-  background: #111;
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-}
+    .account {
+        display: flex;
 
-.signin:hover {
-  opacity: .85;
-}
+        align-items: center;
 
-.loading {
-  font-size: 13px;
-  color: #777;
-}
+        width: fit-content;
+        max-width: 100%;
 
-@media (max-width: 600px) {
+        min-height: 38px;
+    }
 
-  .welcome {
-    padding: 7px 9px;
-  }
 
-  .title {
-    font-size: 19px;
-    margin-bottom: 5px;
-  }
+    /* =========================
+       PROFILE LINK
+       ========================= */
 
-  .avatar {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    min-height: 32px;
-  }
+    .profile-link {
+        display: flex;
 
-  .display-name {
-    font-size: 14px;
-    max-width: 42vw;
-  }
+        align-items: center;
 
-  .username {
-    font-size: 12px;
-  }
+        gap: 9px;
 
-  .account-info {
-    gap: 5px;
-  }
-}
+        text-decoration: none;
+
+        color: inherit;
+
+        max-width: 100%;
+    }
+
+
+    /* =========================
+       AVATAR
+       ========================= */
+
+    .avatar {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 50%;
+
+        object-fit: cover;
+
+        flex-shrink: 0;
+
+        display: block;
+
+        background: #e5e5e5;
+    }
+
+
+    /* =========================
+       TEXT
+       ========================= */
+
+    .name-area {
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        min-width: 0;
+
+        line-height: 1.15;
+    }
+
+
+    .display-name {
+        font-size: 14px;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+
+    .username {
+        margin-top: 2px;
+
+        font-size: 12px;
+
+        opacity: 0.65;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+
+    /* =========================
+       LOGIN BUTTON
+       ========================= */
+
+    .login {
+        border: 0;
+
+        border-radius: 8px;
+
+        padding: 8px 13px;
+
+        font-family: inherit;
+
+        font-size: 13px;
+
+        font-weight: 500;
+
+        cursor: pointer;
+
+        background: #24292f;
+
+        color: white;
+
+        transition:
+            opacity 0.15s ease,
+            transform 0.1s ease;
+    }
+
+
+    .login:hover {
+        opacity: 0.9;
+    }
+
+
+    .login:active {
+        transform: scale(0.97);
+    }
+
+
+    .login:disabled {
+        opacity: 0.6;
+
+        cursor: default;
+
+        transform: none;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 500px) {
+
+        .avatar {
+            width: 34px;
+            height: 34px;
+        }
+
+
+        .profile-link {
+            gap: 8px;
+        }
+
+
+        .display-name {
+            font-size: 13px;
+        }
+
+
+        .username {
+            font-size: 11px;
+        }
+
+
+        .login {
+            padding: 7px 11px;
+
+            font-size: 12px;
+
+            border-radius: 7px;
+        }
+    }
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="welcome">
+<div id="root"></div>
 
-  <div class="title">
-    Welcome Back, <span id="welcomeName">there</span>
-  </div>
-
-  <div id="accountArea">
-    <div class="loading">
-      Loading...
-    </div>
-  </div>
-
-</div>
 
 <script>
 
+"use strict";
+
+
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
 const WORKER =
-  "https://garts-comments.w8361346.workers.dev";
-
-const welcomeName =
-  document.getElementById("welcomeName");
-
-const accountArea =
-  document.getElementById("accountArea");
+    "https://garts-comments.w8361346.workers.dev";
 
 
-/* -----------------------------------------
-   HTML escaping
------------------------------------------ */
+/*
+ * This is the SAME key that comments.html should use.
+ *
+ * It contains the GARTS session ID.
+ *
+ * It does NOT contain the GitHub OAuth access token.
+ */
 
-function escapeHTML(value) {
-
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
+const TOKEN_KEY =
+    "garts_session_token";
 
 
-/* -----------------------------------------
-   GitHub authentication
------------------------------------------ */
-
-function authenticate() {
-
-  const width = 500;
-  const height = 650;
-
-  const left =
-    window.screenX +
-    (window.outerWidth - width) / 2;
-
-  const top =
-    window.screenY +
-    (window.outerHeight - height) / 2;
+const root =
+    document.getElementById("root");
 
 
-  window.open(
+/* =========================================================
+   PROFILE URL
+   ========================================================= */
 
-    WORKER +
-    "/oauth/login?return=welcome",
+function profileUrl(username) {
 
-    "gartsLogin",
-
-    `width=${width},height=${height},left=${left},top=${top}`
-
-  );
+    return (
+        "https://gtvrofficial.github.io/garts/users/" +
+        encodeURIComponent(username)
+    );
 
 }
 
 
-/* -----------------------------------------
-   Get current GARTS account
------------------------------------------ */
+/* =========================================================
+   HTML ESCAPING
+   ========================================================= */
 
-async function loadAccount() {
+function escapeHtml(value) {
 
-  try {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
-    const response =
-      await fetch(
-        WORKER + "/api/me",
-        {
-          method: "GET",
-          credentials: "include",
-          cache: "no-store"
-        }
-      );
+}
 
 
-    const data =
-      await response.json();
+/* =========================================================
+   SHOW LOGGED OUT
+   ========================================================= */
+
+function showLoggedOut() {
+
+    root.innerHTML = `
+        <button
+            class="login"
+            id="loginButton"
+            type="button"
+        >
+            Sign in with GitHub
+        </button>
+    `;
 
 
-    if (
-      !data.success ||
-      !data.user
-    ) {
+    const button =
+        document.getElementById("loginButton");
 
-      showLoggedOut();
-      return;
+
+    if (button) {
+
+        button.addEventListener(
+            "click",
+            login
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW LOGGED IN
+   ========================================================= */
+
+function showAccount(user) {
+
+    if (!user) {
+
+        showLoggedOut();
+
+        return;
 
     }
 
 
-    showAccount(data.user);
+    /*
+     * Support all of the user field names
+     * used by the current/future API.
+     */
+
+    const username =
+        user.gartsUsername ||
+        user.login ||
+        user.username ||
+        "";
 
 
-  } catch (error) {
-
-    console.error(
-      "GARTS account error:",
-      error
-    );
-
-    showLoggedOut();
-
-  }
-
-}
+    const displayName =
+        user.displayName ||
+        user.name ||
+        user.login ||
+        "GARTS User";
 
 
-/* -----------------------------------------
-   Show logged-in account
------------------------------------------ */
-
-function showAccount(user) {
-
-  const username =
-    user.gartsUsername ||
-    user.login ||
-    "user";
-
-
-  const displayName =
-    user.name ||
-    user.login ||
-    username;
-
-
-  const avatar =
-    user.avatarUrl ||
-    (
-      "https://github.com/identicons/" +
-      encodeURIComponent(username) +
-      ".png"
-    );
-
-
-  welcomeName.textContent =
-    displayName;
-
-
-  accountArea.innerHTML = `
-
-    <a
-      class="account"
-      href="https://gtvrofficial.github.io/garts/users/${encodeURIComponent(username)}"
-      title="Open profile"
-    >
-
-      <img
-        class="avatar"
-        src="${escapeHTML(avatar)}"
-        alt=""
-      >
-
-      <div class="account-info">
-
-        <span class="display-name">
-          ${escapeHTML(displayName)}
-        </span>
-
-        <span class="username">
-          @${escapeHTML(username)}
-        </span>
-
-      </div>
-
-    </a>
-
-  `;
-
-}
-
-
-/* -----------------------------------------
-   Logged out state
------------------------------------------ */
-
-function showLoggedOut() {
-
-  welcomeName.textContent =
-    "there";
-
-
-  accountArea.innerHTML = `
-
-    <button
-      class="signin"
-      id="signinButton"
-      type="button"
-    >
-      Sign in with GitHub
-    </button>
-
-  `;
-
-
-  document
-    .getElementById("signinButton")
-    .addEventListener(
-      "click",
-      authenticate
-    );
-
-}
-
-
-/* -----------------------------------------
-   OAuth finished
------------------------------------------ */
-
-window.addEventListener(
-  "message",
-  function(event) {
-
-    if (!event.data)
-      return;
-
-
-    if (
-      event.data.type !==
-      "garts-auth"
-    )
-      return;
+    const avatar =
+        user.avatarUrl ||
+        user.avatar_url ||
+        "";
 
 
     /*
-      OAuth succeeded.
+     * Don't attempt to make a profile URL
+     * if the account has no username.
+     */
 
-      Ask the Worker for the SAME
-      GARTS account used by comments.
-    */
+    if (!username) {
 
-    loadAccount();
+        root.innerHTML = `
+            <div class="account">
 
-  }
+                <div class="name-area">
+
+                    <div class="display-name">
+                        ${escapeHtml(displayName)}
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    root.innerHTML = `
+        <div class="account">
+
+            <a
+                class="profile-link"
+                href="${profileUrl(username)}"
+                target="_top"
+                aria-label="Open ${escapeHtml(displayName)} profile"
+            >
+
+                <img
+                    class="avatar"
+                    src="${escapeHtml(avatar)}"
+                    alt=""
+                    loading="lazy"
+                >
+
+                <div class="name-area">
+
+                    <div class="display-name">
+                        ${escapeHtml(displayName)}
+                    </div>
+
+                    <div class="username">
+                        @${escapeHtml(username)}
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   GET STORED TOKEN
+   ========================================================= */
+
+function getToken() {
+
+    try {
+
+        return localStorage.getItem(
+            TOKEN_KEY
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to access localStorage:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE TOKEN
+   ========================================================= */
+
+function saveToken(token) {
+
+    if (!token) {
+        return;
+    }
+
+
+    try {
+
+        localStorage.setItem(
+            TOKEN_KEY,
+            token
+        );
+
+        console.log(
+            "GARTS session token saved."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Unable to save GARTS session token:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REMOVE TOKEN
+   ========================================================= */
+
+function removeToken() {
+
+    try {
+
+        localStorage.removeItem(
+            TOKEN_KEY
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to remove GARTS session token:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GET CURRENT ACCOUNT
+   ========================================================= */
+
+async function getMe() {
+
+    const token =
+        getToken();
+
+
+    const headers = {
+
+        "Accept":
+            "application/json"
+
+    };
+
+
+    /*
+     * If we have a GARTS bearer session,
+     * send it to the Worker.
+     */
+
+    if (token) {
+
+        headers["Authorization"] =
+            "Bearer " + token;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                WORKER + "/api/me",
+                {
+                    method: "GET",
+
+                    headers: headers,
+
+                    /*
+                     * Keep cookies enabled as a fallback
+                     * for the old session implementation.
+                     */
+
+                    credentials: "include"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            /*
+             * A stored token that no longer exists
+             * should be removed.
+             */
+
+            if (
+                response.status === 401 ||
+                response.status === 403
+            ) {
+
+                if (token) {
+                    removeToken();
+                }
+
+            }
+
+            throw new Error(
+                "Authentication failed: " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data &&
+            data.success &&
+            data.user
+        ) {
+
+            showAccount(
+                data.user
+            );
+
+            return true;
+
+        }
+
+
+        throw new Error(
+            "API did not return a valid account."
+        );
+
+    } catch (error) {
+
+        console.log(
+            "GARTS authentication check:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGIN WITH GITHUB
+   ========================================================= */
+
+function login() {
+
+    const width =
+        600;
+
+    const height =
+        700;
+
+
+    /*
+     * Center popup relative to the current window.
+     */
+
+    const left =
+        window.screenX +
+        (
+            window.outerWidth -
+            width
+        ) / 2;
+
+
+    const top =
+        window.screenY +
+        (
+            window.outerHeight -
+            height
+        ) / 2;
+
+
+    const loginUrl =
+        WORKER +
+        "/oauth/login?return=welcome";
+
+
+    const popup =
+        window.open(
+            loginUrl,
+            "gartsOAuth",
+            [
+                "width=" + width,
+                "height=" + height,
+                "left=" + left,
+                "top=" + top,
+                "popup=yes"
+            ].join(",")
+        );
+
+
+    /*
+     * Some browsers block popups if login()
+     * wasn't triggered by a user click.
+     */
+
+    if (!popup) {
+
+        /*
+         * Fall back to navigating the current
+         * window if the popup was blocked.
+         */
+
+        window.location.href =
+            loginUrl;
+
+        return;
+
+    }
+
+
+    popup.focus();
+
+}
+
+
+/* =========================================================
+   OAUTH CALLBACK MESSAGE
+   ========================================================= */
+
+window.addEventListener(
+    "message",
+    async function(event) {
+
+        /*
+         * SECURITY:
+         *
+         * Only accept messages originating
+         * from our Worker.
+         */
+
+        if (
+            event.origin !== WORKER
+        ) {
+
+            return;
+
+        }
+
+
+        const data =
+            event.data;
+
+
+        /*
+         * Ignore unrelated postMessage events.
+         */
+
+        if (
+            !data ||
+            data.type !== "garts-auth"
+        ) {
+
+            return;
+
+        }
+
+
+        console.log(
+            "GARTS OAuth authentication received."
+        );
+
+
+        /*
+         * The Worker should send:
+         *
+         * {
+         *     type: "garts-auth",
+         *     token: "GARTS_SESSION_ID",
+         *     user: {...}
+         * }
+         *
+         * The token is our opaque GARTS
+         * session ID.
+         */
+
+        if (data.token) {
+
+            saveToken(
+                data.token
+            );
+
+        }
+
+
+        /*
+         * Immediately update the UI using
+         * the user returned by OAuth.
+         */
+
+        if (data.user) {
+
+            showAccount(
+                data.user
+            );
+
+        }
+
+
+        /*
+         * Then verify the session against
+         * the Worker.
+         */
+
+        const authenticated =
+            await getMe();
+
+
+        if (!authenticated) {
+
+            /*
+             * If the token wasn't accepted,
+             * return to the logged-out state.
+             */
+
+            showLoggedOut();
+
+        }
+
+    }
 );
 
 
-/* -----------------------------------------
-   Initial load
------------------------------------------ */
+/* =========================================================
+   OPTIONAL: RECEIVE AUTH FROM PARENT
+   ========================================================= */
 
-loadAccount();
+window.addEventListener(
+    "message",
+    function(event) {
+
+        /*
+         * This allows another GARTS iframe/page
+         * to pass the session along if needed.
+         */
+
+        if (
+            event.origin !==
+            "https://gtvrofficial.github.io"
+        ) {
+
+            return;
+
+        }
+
+
+        const data =
+            event.data;
+
+
+        if (
+            !data ||
+            data.type !== "garts-auth"
+        ) {
+
+            return;
+
+        }
+
+
+        if (data.token) {
+
+            saveToken(
+                data.token
+            );
+
+        }
+
+
+        if (data.user) {
+
+            showAccount(
+                data.user
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+async function init() {
+
+    /*
+     * Start with the existing session.
+     */
+
+    const authenticated =
+        await getMe();
+
+
+    /*
+     * Only show the login button if
+     * there isn't a valid session.
+     */
+
+    if (!authenticated) {
+
+        showLoggedOut();
+
+    }
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+init();
 
 </script>
 
