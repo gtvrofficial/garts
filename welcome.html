@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GARTS Welcome</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111;
+    }
+
+    .welcome-card {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    .welcome-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .account {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 16px;
+      padding: 8px;
+      margin-left: -8px;
+      transition: background 0.15s ease;
+    }
+
+    .account:hover {
+      background: #eeeeee;
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+
+    .account-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .display-name {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .username {
+      margin-top: 3px;
+      font-size: 15px;
+      color: #65676b;
+      line-height: 1.25;
+    }
+
+    .signin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 0;
+      background: #111;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .signin:hover {
+      opacity: 0.85;
+    }
+
+    .loading {
+      color: #777;
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .welcome-card {
+        padding: 20px 16px;
+      }
+
+      .welcome-title {
+        font-size: 24px;
+      }
+
+      .avatar {
+        width: 56px;
+        height: 56px;
+      }
+
+      .display-name {
+        font-size: 18px;
+      }
+
+      .username {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="welcome-card">
+
+    <h1 class="welcome-title">
+      Welcome Back, <span id="welcomeName">...</span>
+    </h1>
+
+    <div id="accountArea">
+      <div class="loading">Loading account...</div>
+    </div>
+
+  </div>
+
+  <script>
+    const WORKER =
+      "https://garts-comments.w8361346.workers.dev";
+
+    const accountArea =
+      document.getElementById("accountArea");
+
+    const welcomeName =
+      document.getElementById("welcomeName");
+
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    function openLogin() {
+      const width = 500;
+      const height = 700;
+
+      const left =
+        window.screenX +
+        (window.outerWidth - width) / 2;
+
+      const top =
+        window.screenY +
+        (window.outerHeight - height) / 2;
+
+      window.open(
+        WORKER + "/oauth/login?return=welcome",
+        "gartsLogin",
+        `width=${width},height=${height},left=${left},top=${top}`
+      );
+    }
+
+
+    async function loadAccount() {
+      try {
+        const response =
+          await fetch(WORKER + "/api/me", {
+            credentials: "include"
+          });
+
+        const data = await response.json();
+
+        if (!data.success || !data.user) {
+          showLoggedOut();
+          return;
+        }
+
+        showAccount(data.user);
+
+      } catch (error) {
+        console.error(error);
+        showLoggedOut();
+      }
+    }
+
+
+    function showAccount(user) {
+
+      const username =
+        user.gartsUsername ||
+        user.login ||
+        "user";
+
+      const displayName =
+        user.name ||
+        user.login ||
+        username;
+
+      const avatar =
+        user.avatarUrl ||
+        "https://github.com/identicons/" +
+        encodeURIComponent(username) +
+        ".png";
+
+      welcomeName.textContent = displayName;
+
+      accountArea.innerHTML = `
+        <a
+          class="account"
+          href="/users/${encodeURIComponent(username)}"
+          title="Open your GAccount"
+        >
+
+          <img
+            class="avatar"
+            src="${escapeHTML(avatar)}"
+            alt=""
+            onerror="this.style.display='none'"
+          >
+
+          <div class="account-info">
+
+            <div class="display-name">
+              ${escapeHTML(displayName)}
+            </div>
+
+            <div class="username">
+              @${escapeHTML(username)}
+            </div>
+
+          </div>
+
+        </a>
+      `;
+    }
+
+
+    function showLoggedOut() {
+
+      welcomeName.textContent = "there";
+
+      accountArea.innerHTML = `
+        <button
+          class="signin"
+          onclick="openLogin()"
+        >
+          Sign in with GitHub
+        </button>
+      `;
+    }
+
+
+    /*
+      OAuth callback sends this message
+      back to the page after login.
+    */
+
+    window.addEventListener("message", event => {
+
+      if (!event.data)
+        return;
+
+      if (event.data.type !== "garts-auth")
+        return;
+
+      /*
+        The Worker has successfully authenticated
+        the user. Reload the account information.
+      */
+
+      loadAccount();
+    });
+
+
+    loadAccount();
+
+  </script>
+
+</body>
+</html>
